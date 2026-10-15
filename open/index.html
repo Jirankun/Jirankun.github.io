@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Kontak | Zhyllan Fyllah</title>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta name="referrer" content="no-referrer" />
+        <meta content="width=device-width, initial-scale=0.8" name="viewport" />
+        <link rel="icon" href="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/all/favicon.ico" />
+        <link rel="preconnect" href="https://cdn.zhyllanfyllah.my.id" crossorigin />
+
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+                margin: 0;
+            }
+
+            #konten {
+                display: none;
+            }
+
+            #foto {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                object-fit: cover;
+                display: block;
+                margin: 20px auto 0 auto;
+            }
+
+            #status {
+                text-align: center;
+                min-height: 20px;
+            }
+
+            #aksi {
+                text-align: center;
+                margin-top: 16px;
+                display: flex;
+                justify-content: center;
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+            #aksi[hidden] {
+                display: none;
+            }
+            #aksi a {
+                display: inline-block;
+                padding: 11px 22px;
+                border-radius: 999px;
+                background: #4f378b;
+                color: #eaddff;
+                font-family:
+                    system-ui,
+                    -apple-system,
+                    "Segoe UI",
+                    sans-serif;
+                font-size: 14px;
+                font-weight: 600;
+                text-decoration: none;
+                border: 1px solid #938f99;
+                transition: filter 0.15s;
+            }
+            #aksi a:hover {
+                filter: brightness(1.12);
+            }
+            #aksi a:active {
+                filter: brightness(0.92);
+            }
+            #aksi a[hidden] {
+                display: none;
+            }
+
+            #turnstile-wrap {
+                display: flex;
+                justify-content: center;
+                margin: 16px auto 0 auto;
+            }
+
+            footer {
+                margin-top: auto;
+                text-align: center;
+                font-size: 13px;
+                padding: 12px 0;
+                border-top: 1px solid #ccc;
+            }
+
+            .notai-logo {
+                width: 130px;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+                margin-top: 16px;
+                align-self: center;
+                animation: shake 1.3s ease-in-out infinite;
+            }
+
+            @keyframes shake {
+                0% {
+                    transform: translateX(0);
+                }
+                2% {
+                    transform: translateX(-8px) rotate(-10deg);
+                }
+                4% {
+                    transform: translateX(8px) rotate(10deg);
+                }
+                6% {
+                    transform: translateX(-8px) rotate(-10deg);
+                }
+                8% {
+                    transform: translateX(8px) rotate(10deg);
+                }
+                10% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(0);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="konten">
+            <img id="foto" src="" alt="Foto Zhyllan Fyllah" />
+            <h1 style="text-align: center">Zhyllan Fyllah</h1>
+            <p id="status" style="text-align: center"></p>
+            <p id="aksi" hidden></p>
+            <div id="turnstile-wrap"></div>
+        </div>
+
+        <footer>
+            &copy; <span id="tahun"></span> Zhyllan Fyllah. All rights reserved.
+            <a href="https://notbyai.fyi" target="_blank" rel="noopener" aria-label="Badge Not By AI">
+                <img
+                    src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/not_by_ai/English/Developed By Human/_SVG/Developed-By-a-Human-Not-By-AI-Badge-black.svg"
+                    alt="not by AI"
+                    class="notai-logo"
+                    loading="lazy"
+                    decoding="async"
+                />
+            </a>
+        </footer>
+
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
+
+        <script>
+            (function () {
+                "use strict";
+
+                var TURNSTILE_SITEKEY = "0x4AAAAAAFM2mTlm2F9TtnHH";
+                var TURNSTILE_ACTION = "open_contact";
+                var VERIFY_ENDPOINT = "https://zhyllan.jirankun.workers.dev/open/verify";
+                var FOTO_URL = "https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/all/favicon.png";
+
+                var fotoEl = document.getElementById("foto");
+                var statusEl = document.getElementById("status");
+                var kontenEl = document.getElementById("konten");
+                var aksiEl = document.getElementById("aksi");
+                var wrapEl = document.getElementById("turnstile-wrap");
+
+                var rawSlug = getSlug();
+                var hasSlug = !!rawSlug;
+                var media = [];
+                var buttons = {};
+                var token = null;
+                var verifying = false;
+                var widgetId = null;
+
+                function getSlug() {
+                    var search = window.location.search || "";
+                    var hash = window.location.hash || "";
+                    var raw = (search + hash).replace(/^[?&=]+/, "").toLowerCase();
+                    return raw.split(/[&=]/)[0].trim();
+                }
+
+                function setStatus(text) {
+                    statusEl.textContent = text || "";
+                }
+
+                function findMedia(slug) {
+                    for (var i = 0; i < media.length; i++) {
+                        var m = media[i];
+                        if (m.slug === slug) return m;
+                        if (m.aliases && m.aliases.indexOf(slug) !== -1) return m;
+                    }
+                    return null;
+                }
+
+                function buildButtons(list) {
+                    aksiEl.innerHTML = "";
+                    buttons = {};
+                    list.forEach(function (m) {
+                        var a = document.createElement("a");
+                        a.href = "#";
+                        a.textContent = m.label;
+                        a.setAttribute("hidden", "hidden");
+                        aksiEl.appendChild(a);
+                        buttons[m.slug] = a;
+                    });
+                }
+
+                function showLink(slug, url) {
+                    var el = buttons[slug];
+                    if (!el || !url) return;
+                    el.href = url;
+                    el.removeAttribute("hidden");
+                    aksiEl.removeAttribute("hidden");
+                }
+
+                function showOnlyLink(slug, url) {
+                    for (var key in buttons) {
+                        if (key !== slug) buttons[key].setAttribute("hidden", "hidden");
+                    }
+                    showLink(slug, url);
+                }
+
+                function onVerified(list) {
+                    if (!Array.isArray(list)) {
+                        setStatus("Verifikasi berhasil, tapi tautan tidak tersedia. Coba muat ulang.");
+                        return;
+                    }
+                    media = list;
+                    buildButtons(list);
+
+                    if (hasSlug) {
+                        var found = findMedia(rawSlug);
+                        if (found) {
+                            showOnlyLink(found.slug, found.url);
+                            setStatus("Verifikasi berhasil. Mengarahkan…");
+
+                            try {
+                                window.location.assign(found.url);
+                            } catch (e) {}
+
+                            setTimeout(function () {
+                                if (!document.hidden) {
+                                    setStatus("Belum terbuka otomatis? Ketuk tombol di bawah 👇");
+                                }
+                            }, 1500);
+                            return;
+                        }
+                    }
+
+                    list.forEach(function (m) {
+                        showLink(m.slug, m.url);
+                    });
+                    setStatus("Verifikasi berhasil. Silakan pilih tautan.");
+                }
+
+                function verify() {
+                    if (verifying) return;
+                    if (!token) {
+                        setStatus("Selesaikan verifikasi terlebih dahulu.");
+                        return;
+                    }
+                    verifying = true;
+                    setStatus("Memverifikasi…");
+
+                    fetch(VERIFY_ENDPOINT, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        credentials: "omit",
+                        body: JSON.stringify({ token: token }),
+                    })
+                        .then(function (res) {
+                            return res
+                                .json()
+                                .catch(function () {
+                                    return {};
+                                })
+                                .then(function (data) {
+                                    return { ok: res.ok, data: data };
+                                });
+                        })
+                        .then(function (r) {
+                            if (r.ok && r.data && r.data.success === true) {
+                                onVerified(r.data.media);
+                                return;
+                            }
+                            verifying = false;
+                            setStatus("Verifikasi gagal. Silahkan coba lagi.");
+                            if (window.turnstile && widgetId !== null) {
+                                window.turnstile.reset(widgetId);
+                                token = null;
+                            }
+                        })
+                        .catch(function () {
+                            verifying = false;
+                            setStatus("Gagal menghubungi server. Silahkan coba lagi.");
+                            if (window.turnstile && widgetId !== null) {
+                                window.turnstile.reset(widgetId);
+                                token = null;
+                            }
+                        });
+                }
+
+                function renderTurnstile() {
+                    if (!window.turnstile || !wrapEl) return;
+                    wrapEl.innerHTML = "";
+                    widgetId = window.turnstile.render(wrapEl, {
+                        sitekey: TURNSTILE_SITEKEY,
+                        action: TURNSTILE_ACTION,
+                        theme: "auto",
+                        callback: function (t) {
+                            token = t;
+                            verify();
+                        },
+                        "expired-callback": function () {
+                            token = null;
+                        },
+                        "error-callback": function () {
+                            token = null;
+                            setStatus("Verifikasi bermasalah. Silahkan muat ulang halaman.");
+                        },
+                    });
+                }
+
+                fotoEl.src = FOTO_URL;
+                kontenEl.style.display = "block";
+                setStatus(
+                    hasSlug
+                        ? "Selesaikan verifikasi untuk melanjutkan."
+                        : "Selesaikan verifikasi untuk melihat pilihan tautan.",
+                );
+
+                if (window.turnstile) {
+                    renderTurnstile();
+                } else {
+                    window.addEventListener("load", renderTurnstile);
+                }
+
+                document.getElementById("tahun").textContent = new Date().getFullYear();
+            })();
+        </script>
+
+        <noscript>
+            <p>Maaf, sepertinya JavaScript dimatikan. Harap aktifkan agar dapat melakukan verifikasi dan redirect.</p>
+        </noscript>
+    </body>
+</html>

@@ -1,0 +1,99 @@
+/* ============================================================
+   Gaya daftar dokumen per kategori (/dokumen/view/<id>).
+   Memakai variabel MaterialZ; ringan, hanya pemisah garis.
+   ============================================================ */
+
+.v-list { display: flex; flex-direction: column; }
+
+.v-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 2px;
+  border-bottom: 1px solid var(--m3-outline-variant);
+  text-decoration: none;
+  color: inherit;
+}
+.v-item:last-child { border-bottom: none; }
+
+/* Preview di kiri */
+.v-thumb {
+  width: 72px;
+  height: 96px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--m3-surface-container-high);
+  border: 1px solid var(--m3-outline-variant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--m3-on-surface-variant);
+}
+.v-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.v-thumb .material-icons-round { font-size: 26px; }
+
+.v-body { flex: 1; min-width: 0; }
+
+.v-name {
+  display: block;
+  font-family: var(--m3-font-brand);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--m3-on-surface);
+  transition: color 0.15s;
+}
+.v-item:hover .v-name { color: var(--m3-primary); }
+
+.v-desc {
+  display: block;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--m3-on-surface-variant);
+  margin-top: 2px;
+}
+
+.v-meta {
+  display: block;
+  font-size: 11px;
+  color: var(--m3-on-surface-variant);
+  margin-top: 6px;
+}
+.v-type {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--m3-primary);
+}
+.v-dot {
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--m3-outline);
+  vertical-align: middle;
+  margin: 0 2px;
+}
+
+.v-arrow {
+  flex-shrink: 0;
+  color: var(--m3-outline);
+  transition: color 0.15s, transform 0.15s;
+}
+.v-item:hover .v-arrow { color: var(--m3-primary); transform: translateX(4px); }
+
+.v-empty {
+  padding: 32px 2px;
+  color: var(--m3-on-surface-variant);
+  font-size: 13px;
+}
+
+@media (max-width: 640px) {
+  .v-thumb { width: 56px; height: 76px; border-radius: 8px; }
+  .v-name { font-size: 15px; }
+  .v-desc { font-size: 12px; }
+}

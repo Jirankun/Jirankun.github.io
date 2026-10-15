@@ -1,0 +1,1347 @@
+<!doctype html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        <meta name="robots" content="noindex, nofollow" />
+        <title>Fylia AI — Chat</title>
+        <meta name="robots" content="noindex" />
+        <link rel="icon" href="data:," />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://cdn.zhyllanfyllah.my.id" crossorigin />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.zhyllanfyllah.my.id/cdn/public/css/materialZ/1.0.0.css" />
+
+        <style>
+            @font-face {
+                font-family: "Chillax";
+                src: url("https://cdn.zhyllanfyllah.my.id/cdn/privite/fonts/format/woff2/Chillax-Regular.woff2")
+                    format("woff2");
+                font-weight: 400;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Chillax";
+                src: url("https://cdn.zhyllanfyllah.my.id/cdn/privite/fonts/format/woff2/Chillax-Medium.woff2")
+                    format("woff2");
+                font-weight: 500;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Chillax";
+                src: url("https://cdn.zhyllanfyllah.my.id/cdn/privite/fonts/format/woff2/Chillax-Semibold.woff2")
+                    format("woff2");
+                font-weight: 600;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Chillax";
+                src: url("https://cdn.zhyllanfyllah.my.id/cdn/privite/fonts/format/woff2/Chillax-Bold.woff2")
+                    format("woff2");
+                font-weight: 700;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Plus Jakarta Sans";
+                src: url("https://cdn.zhyllanfyllah.my.id/cdn/privite/fonts/format/woff2/PlusJakartaSans.woff2")
+                    format("woff2");
+                font-weight: 200 800;
+                font-display: swap;
+            }
+
+            :root {
+                --m3-font-brand: "Chillax", system-ui, sans-serif;
+                --m3-font-plain: "Plus Jakarta Sans", system-ui, sans-serif;
+
+                --m3-primary: #d0bcff;
+                --m3-on-primary: #381e72;
+                --m3-primary-container: #4f378b;
+                --m3-on-primary-container: #eaddff;
+
+                --m3-surface: #141218;
+                --m3-surface-container-lowest: #0f0d13;
+                --m3-surface-container-low: #1d1b20;
+                --m3-surface-container: #211f26;
+                --m3-surface-container-high: #2b2930;
+                --m3-surface-container-highest: #36343b;
+                --m3-on-surface: #e6e0e9;
+                --m3-on-surface-variant: #cac4d0;
+                --m3-outline: #938f99;
+                --m3-outline-variant: #49454f;
+                --m3-error: #f2b8b5;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                height: 100%;
+            }
+            body {
+                font-family: var(--m3-font-plain);
+                background: var(--m3-surface);
+                color: var(--m3-on-surface);
+                overflow: hidden;
+                -webkit-font-smoothing: antialiased;
+                -webkit-tap-highlight-color: transparent;
+            }
+            button {
+                font-family: inherit;
+                cursor: pointer;
+            }
+            img {
+                max-width: 100%;
+            }
+
+            /* ═══ LOADING SCREEN ═══ */
+            .fylia-loader {
+                position: fixed;
+                inset: 0;
+                z-index: 1000;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 24px;
+                background: var(--m3-surface);
+                transition:
+                    opacity 0.5s cubic-bezier(0.2, 0, 0, 1),
+                    visibility 0.5s cubic-bezier(0.2, 0, 0, 1);
+            }
+            .fylia-loader.hidden {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+            .loader-morph {
+                width: 90px;
+                height: 90px;
+                position: relative;
+            }
+            .loader-morph svg {
+                width: 100%;
+                height: 100%;
+                display: block;
+                overflow: visible;
+            }
+            .loader-morph-path {
+                fill: var(--m3-primary);
+                stroke: none;
+            }
+            .loader-label {
+                font-family: var(--m3-font-brand);
+                font-size: 13px;
+                font-weight: 500;
+                letter-spacing: 0.5px;
+                color: var(--m3-primary);
+                opacity: 0.85;
+                animation: loaderLabelPulse 2s ease-in-out infinite;
+            }
+            @keyframes loaderLabelPulse {
+                0%,
+                100% {
+                    opacity: 0.5;
+                }
+                50% {
+                    opacity: 1;
+                }
+            }
+
+            /* ═══ CHAT — fullscreen ═══ */
+            .fylia-app {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                opacity: 0;
+                visibility: hidden;
+                transition:
+                    opacity 0.5s cubic-bezier(0.2, 0, 0, 1),
+                    visibility 0s linear 0.5s;
+                background: var(--m3-surface);
+            }
+            .fylia-app.visible {
+                opacity: 1;
+                visibility: visible;
+                transition:
+                    opacity 0.5s cubic-bezier(0.2, 0, 0, 1),
+                    visibility 0s;
+            }
+
+            .fylia-header {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 12px 16px;
+                background: var(--m3-surface-container);
+                border-bottom: 1px solid var(--m3-outline-variant);
+                flex-shrink: 0;
+            }
+            .fylia-avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+                background: var(--m3-surface-container-highest);
+                border: 1.5px solid var(--m3-primary);
+                flex-shrink: 0;
+            }
+            .fylia-header-info {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                min-width: 0;
+                gap: 2px;
+            }
+            .fylia-name {
+                font-family: var(--m3-font-brand);
+                font-weight: 600;
+                font-size: 15px;
+                color: var(--m3-on-surface);
+                letter-spacing: -0.2px;
+                line-height: 1.2;
+            }
+            .fylia-status {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 11px;
+                color: var(--m3-on-surface-variant);
+                line-height: 1.2;
+            }
+            .fylia-status-dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #4ade80;
+                box-shadow: 0 0 6px rgba(74, 222, 128, 0.6);
+                animation: pulseDot 2s ease-in-out infinite;
+            }
+            @keyframes pulseDot {
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.4;
+                }
+            }
+            .fylia-model {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                align-self: flex-start;
+                margin-top: 2px;
+                padding: 2px 8px;
+                border-radius: 999px;
+                background: var(--m3-surface-container-highest);
+                color: var(--m3-on-surface-variant);
+                font-size: 10px;
+                font-weight: 500;
+                letter-spacing: 0.2px;
+                white-space: nowrap;
+                max-width: 100%;
+            }
+            .fylia-model .material-icons-round {
+                font-size: 11px;
+                opacity: 0.8;
+            }
+            #fyliaModelName {
+                display: block;
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .fylia-log {
+                flex: 1;
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                -webkit-overflow-scrolling: touch;
+                padding: 20px 16px 8px;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                scrollbar-width: thin;
+                scrollbar-color: var(--m3-outline-variant) transparent;
+                min-height: 0;
+            }
+            .fylia-log::-webkit-scrollbar {
+                width: 6px;
+            }
+            .fylia-log::-webkit-scrollbar-thumb {
+                background: var(--m3-outline-variant);
+                border-radius: 3px;
+            }
+
+            .msg-user {
+                align-self: flex-end;
+                max-width: min(78%, 520px);
+                padding: 10px 14px;
+                border-radius: 18px 18px 4px 18px;
+                background: var(--m3-primary);
+                color: var(--m3-on-primary);
+                font-size: 14px;
+                line-height: 1.5;
+                word-break: break-word;
+                animation: msgIn 0.25s cubic-bezier(0.2, 0, 0, 1);
+            }
+            @keyframes msgIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(6px);
+                }
+                to {
+                    opacity: 1;
+                    transform: none;
+                }
+            }
+
+            .msg-bot {
+                align-self: flex-start;
+                display: flex;
+                align-items: flex-end;
+                gap: 8px;
+                max-width: min(88%, 620px);
+            }
+            .msg-bot-face {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 1px solid var(--m3-outline-variant);
+                flex-shrink: 0;
+                background: var(--m3-surface-container);
+            }
+            .msg-bot-content {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+                min-width: 0;
+                flex: 1;
+            }
+            .msg-bot-bubble {
+                max-width: 100%;
+                padding: 10px 14px;
+                border-radius: 18px 18px 18px 4px;
+                background: var(--m3-surface-container-highest);
+                color: var(--m3-on-surface);
+                font-size: 14px;
+                line-height: 1.55;
+                word-break: break-word;
+            }
+            .msg-bot-sticker {
+                animation: stickerPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+            .msg-bot-sticker img {
+                width: 110px;
+                height: 110px;
+                object-fit: contain;
+                border-radius: 12px;
+                display: block;
+            }
+            @keyframes stickerPop {
+                0% {
+                    opacity: 0;
+                    transform: scale(0.7) rotate(-6deg);
+                }
+                70% {
+                    transform: scale(1.06) rotate(2deg);
+                }
+                100% {
+                    opacity: 1;
+                    transform: scale(1) rotate(0);
+                }
+            }
+
+            /* Tombol aksi dari AI — membuka tab baru */
+            .msg-action {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                margin-top: 8px;
+                padding: 8px 14px;
+                border-radius: 999px;
+                background: var(--m3-primary);
+                color: var(--m3-on-primary);
+                font-family: var(--m3-font-plain);
+                font-size: 13px;
+                font-weight: 600;
+                text-decoration: none;
+                transition:
+                    filter 0.15s,
+                    transform 0.15s;
+            }
+            .msg-action:hover {
+                filter: brightness(1.1);
+            }
+            .msg-action:active {
+                transform: scale(0.97);
+            }
+            .msg-action .material-icons-round {
+                font-size: 16px;
+            }
+
+            /* ═══ TYPING — Material 3 morph loader ═══ */
+            .msg-typing {
+                align-self: flex-start;
+                display: flex;
+                align-items: flex-end;
+                gap: 8px;
+            }
+            .typing-bubble {
+                padding: 10px 16px;
+                border-radius: 18px 18px 18px 4px;
+                background: var(--m3-surface-container-highest);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 52px;
+                min-height: 40px;
+            }
+            .typing-morph {
+                width: 22px;
+                height: 22px;
+                display: block;
+                overflow: visible;
+            }
+            .typing-morph path {
+                fill: var(--m3-primary);
+                stroke: none;
+            }
+
+            /* ═══ MARKDOWN ═══ */
+            .msg-bot-bubble > :last-child,
+            .msg-user > :last-child {
+                margin-bottom: 0;
+            }
+            .msg-bot-bubble :is(p, ul, ol, pre, blockquote, table),
+            .msg-user :is(p, ul, ol, pre, blockquote, table) {
+                margin: 0 0 8px;
+            }
+            .msg-bot-bubble :is(ul, ol),
+            .msg-user :is(ul, ol) {
+                padding-left: 20px;
+            }
+            .msg-bot-bubble li,
+            .msg-user li {
+                margin-bottom: 3px;
+            }
+            .msg-bot-bubble :is(h1, h2, h3, h4, h5, h6),
+            .msg-user :is(h1, h2, h3, h4, h5, h6) {
+                font-size: 1em;
+                font-weight: 700;
+                margin: 10px 0 4px;
+            }
+            .msg-bot-bubble strong,
+            .msg-user strong {
+                font-weight: 700;
+            }
+            .msg-bot-bubble blockquote {
+                border-left: 3px solid var(--m3-primary);
+                padding-left: 10px;
+                color: var(--m3-on-surface-variant);
+                font-style: italic;
+            }
+            .msg-user blockquote {
+                border-left-color: rgba(255, 255, 255, 0.7);
+                border-left-width: 3px;
+                padding-left: 10px;
+            }
+            .msg-bot-bubble code,
+            .msg-user code {
+                font-family: ui-monospace, "JetBrains Mono", Consolas, monospace;
+                font-size: 0.85em;
+                background: rgba(208, 188, 255, 0.12);
+                padding: 2px 6px;
+                border-radius: 6px;
+            }
+            .msg-user code {
+                background: rgba(255, 255, 255, 0.2);
+            }
+            .msg-bot-bubble pre {
+                background: var(--m3-surface-container-lowest);
+                border: 1px solid var(--m3-outline-variant);
+                border-radius: 10px;
+                padding: 10px 12px;
+                overflow-x: auto;
+            }
+            .msg-user pre {
+                background: rgba(0, 0, 0, 0.25);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 10px;
+                padding: 10px 12px;
+                overflow-x: auto;
+            }
+            .msg-bot-bubble pre code,
+            .msg-user pre code {
+                background: none;
+                padding: 0;
+                font-size: 0.82em;
+            }
+            .msg-bot-bubble hr,
+            .msg-user hr {
+                border: none;
+                border-top: 1px solid var(--m3-outline-variant);
+                margin: 8px 0;
+            }
+            .msg-user hr {
+                border-top-color: rgba(255, 255, 255, 0.25);
+            }
+
+            .msg-link {
+                color: var(--m3-primary);
+                text-decoration: underline;
+                text-decoration-color: rgba(208, 188, 255, 0.4);
+                text-underline-offset: 2px;
+                word-break: break-all;
+                transition: opacity 0.15s;
+            }
+            .msg-link:hover {
+                opacity: 0.8;
+            }
+            .msg-user .msg-link {
+                color: #fff;
+                text-decoration-color: rgba(255, 255, 255, 0.6);
+            }
+
+            /* ═══════════════════════════════════════════════════════
+   FADE-IN PER KARAKTER
+   ═══════════════════════════════════════════════════════ */
+            .char-fade {
+                display: inline;
+                opacity: 0;
+                animation: charIn 0.32s cubic-bezier(0.2, 0, 0, 1) forwards;
+            }
+            @keyframes charIn {
+                0% {
+                    opacity: 0;
+                }
+                100% {
+                    opacity: 1;
+                }
+            }
+            .char-space {
+                display: inline;
+            }
+
+            /* ═══ FORM ═══ */
+            .fylia-form {
+                display: flex;
+                gap: 8px;
+                padding: 12px 16px 16px;
+                background: var(--m3-surface-container);
+                border-top: 1px solid var(--m3-outline-variant);
+                flex-shrink: 0;
+            }
+            .fylia-input-wrap {
+                flex: 1;
+                min-width: 0;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+            }
+            .fylia-input {
+                width: 100%;
+                min-width: 0;
+                padding: 12px 18px;
+                border-radius: 999px;
+                border: 1px solid var(--m3-outline-variant);
+                background: var(--m3-surface-container-high);
+                color: var(--m3-on-surface);
+                font-family: var(--m3-font-plain);
+                font-size: 14px;
+                outline: none;
+                transition:
+                    border-color 0.2s,
+                    background 0.2s;
+            }
+            .fylia-input::placeholder {
+                color: var(--m3-on-surface-variant);
+                transition: opacity 0.35s ease;
+            }
+            .fylia-input:focus {
+                border-color: var(--m3-primary);
+                background: var(--m3-surface-container-highest);
+            }
+
+            /* Error state */
+            .fylia-input.error {
+                border-color: var(--m3-error);
+            }
+            .fylia-input.error::placeholder {
+                color: var(--m3-error);
+            }
+
+            .fylia-send {
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                border: none;
+                background: var(--m3-primary);
+                color: var(--m3-on-primary);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition:
+                    transform 0.2s,
+                    box-shadow 0.2s,
+                    background 0.2s;
+                flex-shrink: 0;
+            }
+            .fylia-send:hover {
+                transform: scale(1.06);
+                box-shadow: 0 4px 12px rgba(208, 188, 255, 0.3);
+            }
+            .fylia-send:active {
+                transform: scale(0.96);
+            }
+            .fylia-send:disabled {
+                opacity: 0.4;
+                transform: none;
+                cursor: not-allowed;
+                box-shadow: none;
+            }
+            .fylia-send .material-icons-round {
+                font-size: 22px;
+            }
+
+            .fylia-send:focus-visible,
+            .fylia-input:focus-visible {
+                outline: 2px solid var(--m3-primary);
+                outline-offset: 2px;
+            }
+
+            @media (max-width: 480px) {
+                .fylia-header {
+                    padding: 10px 12px;
+                }
+                .fylia-avatar {
+                    width: 36px;
+                    height: 36px;
+                }
+                .fylia-name {
+                    font-size: 14px;
+                }
+                .fylia-log {
+                    padding: 16px 12px 8px;
+                }
+                .msg-user {
+                    max-width: 85%;
+                    font-size: 13.5px;
+                }
+                .msg-bot {
+                    max-width: 92%;
+                }
+                .msg-bot-bubble {
+                    font-size: 13.5px;
+                }
+                .msg-bot-sticker img {
+                    width: 90px;
+                    height: 90px;
+                }
+                .fylia-form {
+                    padding: 10px 12px 14px;
+                }
+                .fylia-input {
+                    padding: 11px 16px;
+                    font-size: 13.5px;
+                }
+                .fylia-send {
+                    width: 44px;
+                    height: 44px;
+                }
+                .loader-morph {
+                    width: 80px;
+                    height: 80px;
+                }
+                .typing-morph {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .char-fade {
+                    animation: none !important;
+                    opacity: 1 !important;
+                }
+                .fylia-input::placeholder {
+                    transition: none !important;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="fylia-loader" id="fyliaLoader" aria-hidden="true">
+            <div class="loader-morph">
+                <svg viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path class="loader-morph-path" id="loaderMorphPath" d="" />
+                </svg>
+            </div>
+            <div class="loader-label">Menyiapkan Fylia...</div>
+        </div>
+
+        <div class="fylia-app" id="fyliaApp">
+            <header class="fylia-header">
+                <img src="/ai/Face-Fylia.png" alt="Fylia" class="fylia-avatar" />
+                <div class="fylia-header-info">
+                    <span class="fylia-name">Fylia</span>
+                    <span class="fylia-status">
+                        <span class="fylia-status-dot"></span>
+                        Online
+                    </span>
+                    <span class="fylia-model" id="fyliaModel" title="Model AI yang dipakai">
+                        <span class="material-icons-round">memory</span>
+                        <span id="fyliaModelName">—</span>
+                    </span>
+                </div>
+            </header>
+
+            <div class="fylia-log" id="fyliaLog"></div>
+
+            <form class="fylia-form" id="fyliaForm" autocomplete="off" novalidate>
+                <div class="fylia-input-wrap">
+                    <input
+                        type="text"
+                        class="fylia-input"
+                        id="fyliaInput"
+                        placeholder="Tanya dengan konteks Zhyllan..."
+                        maxlength="500"
+                    />
+                </div>
+                <button type="submit" class="fylia-send" id="fyliaSend" aria-label="Kirim pesan">
+                    <span class="material-icons-round">send</span>
+                </button>
+            </form>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+        <script>
+            const WORKER_URL = "https://zhyllan.jirankun.workers.dev";
+            const ASSET_BASE = "/ai/";
+            const CHAT_MAX_HISTORY = 10;
+            const CHAT_TIMEOUT_MS = 30000;
+            const LOADING_DURATION_MS = 4000;
+            const CHAR_DELAY_MS = 9;
+            const INPUT_PLACEHOLDER_DEFAULT = "Tanya tentang Zhyllan...";
+            const INPUT_PLACEHOLDER_ERROR = "Harap isi bagian ini...";
+            const ERROR_HOLD_MS = 1800; /* berapa lama error tampil sebelum fade out */
+
+            const FYLIA_FACE = ASSET_BASE + "Face-Fylia.png";
+            const FYLIA_STICKER_MAP = {
+                Sticker_Hello: ASSET_BASE + "Sticker_Hello.png",
+                Sticker_Think: ASSET_BASE + "Sticker_Think.png",
+                Sticker_Idea: ASSET_BASE + "Sticker_Idea.png",
+                Sticker_Okey: ASSET_BASE + "Sticker_Okey.png",
+                Sticker_Woah: ASSET_BASE + "Sticker_Woah.png",
+                Sticker_Fight: ASSET_BASE + "Sticker_Fight.png",
+                Sticker_Formal: ASSET_BASE + "Sticker_Formal.png",
+            };
+
+            /* Peta aksi → URL. Hanya nama aksi dari daftar ini yang diterima;
+         worker sudah memvalidasi nama, dan URL-nya ditentukan di sini
+         (bukan dari model) agar prompt injection tidak bisa mengarahkan
+         user ke link sembarangan. */
+            const FYLIA_ACTION_MAP = {
+                contact: {
+                    url: "/open",
+                    label: "Buka Kontak",
+                    icon: "link",
+                },
+                contact_wa: {
+                    url: "/open?wa",
+                    label: "Chat WhatsApp",
+                    icon: "chat",
+                },
+                contact_email: {
+                    url: "/open?mail",
+                    label: "Kirim Email",
+                    icon: "mail",
+                },
+                docs: {
+                    url: "/dokumen",
+                    label: "Lihat Dokumen",
+                    icon: "folder",
+                },
+                docs_cv: {
+                    url: "/dokumen/view/cv",
+                    label: "Lihat CV",
+                    icon: "description",
+                },
+                docs_resume: {
+                    url: "/dokumen/view/resume",
+                    label: "Lihat Resume",
+                    icon: "badge",
+                },
+                docs_sertifikat: {
+                    url: "/dokumen/view/sertifikat",
+                    label: "Lihat Sertifikat",
+                    icon: "workspace_premium",
+                },
+                docs_lainnya: {
+                    url: "/dokumen/view/lainnya",
+                    label: "Dokumen Lainnya",
+                    icon: "folder_open",
+                },
+                github: {
+                    url: "https://github.com/Jirankun",
+                    label: "GitHub",
+                    icon: "code",
+                },
+                blog: {
+                    url: "https://www.zhyllanfyllah.my.id",
+                    label: "Blog",
+                    icon: "article",
+                },
+                aokaze: {
+                    url: "https://aokazestudio.zhyllanfyllah.my.id",
+                    label: "Aokaze Studio",
+                    icon: "language",
+                },
+            };
+
+            /* ═══════════════ MORPH SHAPE BUILDER ═══════════════ */
+            function createMorphAnimator(pathEl, size, opts) {
+                opts = opts || {};
+                const CX = size / 2;
+                const CY = size / 2;
+                const BASE_R = size / 2 - (opts.padding || 6);
+                const POINTS = 72;
+                const SEGMENT_MS = opts.segmentMs || 900;
+                const ROTATION_SPEED = opts.rotationSpeed || 0.005;
+
+                const shapes = {
+                    circle: function () {
+                        return BASE_R;
+                    },
+                    oval: function (a) {
+                        const rx = BASE_R * 1.0,
+                            ry = BASE_R * 0.8;
+                        const c = Math.cos(a),
+                            s = Math.sin(a);
+                        return (rx * ry) / Math.sqrt(ry * c * (ry * c) + rx * s * (rx * s));
+                    },
+                    pill: function (a) {
+                        const rx = BASE_R * 1.02,
+                            ry = BASE_R * 0.72;
+                        const c = Math.cos(a),
+                            s = Math.sin(a);
+                        return (rx * ry) / Math.sqrt(ry * c * (ry * c) + rx * s * (rx * s));
+                    },
+                    burst: function (a) {
+                        return BASE_R * (0.88 + 0.14 * Math.abs(Math.cos(3 * a)));
+                    },
+                    sunny: function (a) {
+                        return BASE_R * (0.89 + 0.11 * Math.abs(Math.cos(6 * a)));
+                    },
+                    pentagon: function (a) {
+                        const sides = 5;
+                        const sector = (2 * Math.PI) / sides;
+                        const theta = a - Math.PI / 2;
+                        const la = (((theta % sector) + sector) % sector) - sector / 2;
+                        return (BASE_R * 0.94 * Math.cos(sector / 2)) / Math.cos(la);
+                    },
+                };
+
+                const sequence = ["circle", "oval", "burst", "pill", "sunny", "pentagon"];
+
+                function easeInOutCubic(t) {
+                    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+                }
+
+                function buildPath(radiusFn, rotation) {
+                    let d = "";
+                    const cosR = Math.cos(rotation);
+                    const sinR = Math.sin(rotation);
+                    for (let i = 0; i <= POINTS; i++) {
+                        const a = (i / POINTS) * Math.PI * 2;
+                        const r = radiusFn(a);
+                        const x0 = r * Math.cos(a);
+                        const y0 = r * Math.sin(a);
+                        const x = CX + x0 * cosR - y0 * sinR;
+                        const y = CY + x0 * sinR + y0 * cosR;
+                        d += (i === 0 ? "M" : "L") + x.toFixed(2) + " " + y.toFixed(2) + " ";
+                    }
+                    return d + "Z";
+                }
+
+                function makeInterpolator(fnA, fnB, t) {
+                    const e = easeInOutCubic(t);
+                    return function (a) {
+                        return fnA(a) * (1 - e) + fnB(a) * e;
+                    };
+                }
+
+                pathEl.setAttribute("d", buildPath(shapes.circle, 0));
+
+                const startTime = performance.now();
+                let lastFrame = 0;
+                let rafId = 0;
+
+                function tick(now) {
+                    const elapsed = now - startTime;
+                    const cycleLength = sequence.length * SEGMENT_MS;
+                    const cyclePos = elapsed % cycleLength;
+                    const segIndex = Math.floor(cyclePos / SEGMENT_MS);
+                    const segT = (cyclePos % SEGMENT_MS) / SEGMENT_MS;
+
+                    const fromShape = shapes[sequence[segIndex]];
+                    const toShape = shapes[sequence[(segIndex + 1) % sequence.length]];
+                    const radiusFn = makeInterpolator(fromShape, toShape, segT);
+                    const rotation = elapsed * ROTATION_SPEED;
+
+                    try {
+                        pathEl.setAttribute("d", buildPath(radiusFn, rotation));
+                    } catch (e) {}
+
+                    lastFrame = now;
+                    rafId = requestAnimationFrame(tick);
+                }
+                rafId = requestAnimationFrame(tick);
+
+                const watchdog = setInterval(function () {
+                    const now = performance.now();
+                    if (now - lastFrame > 200) {
+                        lastFrame = now;
+                        tick(now);
+                    }
+                }, 250);
+
+                return {
+                    stop: function () {
+                        if (rafId) cancelAnimationFrame(rafId);
+                        clearInterval(watchdog);
+                    },
+                };
+            }
+
+            (function initLoader() {
+                const pathEl = document.getElementById("loaderMorphPath");
+                if (!pathEl) return;
+                createMorphAnimator(pathEl, 90, { padding: 6 });
+            })();
+
+            /* ═══════════════ HELPERS ═══════════════ */
+            const $ = sel => document.querySelector(sel);
+            const escHtml = s => {
+                const d = document.createElement("div");
+                d.textContent = s;
+                return d.innerHTML;
+            };
+
+            function shortModel(m) {
+                if (!m) return "—";
+                return m
+                    .replace(/^@cf\//, "")
+                    .replace(/-instruct-fp8-fast$/, "")
+                    .replace(/-instruct$/, "");
+            }
+
+            function renderInlineMarkdown(text) {
+                let s = escHtml(String(text));
+                s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+                s = s.replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<em>$2</em>");
+                s = s.replace(/`([^`]+)`/g, "<code>$1</code>");
+                s = s.replace(/(https?:\/\/[^\s<]+)/gi, url => {
+                    const clean = url.replace(/[.,;:!?)]+$/, "");
+                    return (
+                        '<a href="' +
+                        clean +
+                        '" target="_blank" rel="noopener noreferrer" class="msg-link">' +
+                        clean +
+                        "</a>"
+                    );
+                });
+                s = s.replace(/\n/g, "<br>");
+                return s;
+            }
+
+            function renderFullMarkdown(text) {
+                if (typeof marked === "undefined" || typeof DOMPurify === "undefined") {
+                    return renderInlineMarkdown(text);
+                }
+                try {
+                    if (!marked.__fyliaConfigured) {
+                        marked.setOptions({ gfm: true, breaks: true });
+                        marked.__fyliaConfigured = true;
+                    }
+                    const html = marked.parse(String(text));
+                    const clean = DOMPurify.sanitize(html, {
+                        USE_PROFILES: { html: true },
+                    });
+                    const div = document.createElement("div");
+                    div.innerHTML = clean;
+                    div.querySelectorAll("a").forEach(a => {
+                        a.target = "_blank";
+                        a.rel = "noopener noreferrer";
+                        a.classList.add("msg-link");
+                    });
+                    return div.innerHTML;
+                } catch {
+                    return renderInlineMarkdown(text);
+                }
+            }
+
+            /* ═══════════════ CHAT LOGIC ═══════════════ */
+            (function initChat() {
+                const app = $("#fyliaApp");
+                const log = $("#fyliaLog");
+                const form = $("#fyliaForm");
+                const input = $("#fyliaInput");
+                const sendBtn = $("#fyliaSend");
+                const modelName = $("#fyliaModelName");
+                const modelBadge = $("#fyliaModel");
+
+                const history = [];
+                let busy = false;
+
+                const scrollLog = () => {
+                    requestAnimationFrame(() => {
+                        log.scrollTop = log.scrollHeight;
+                    });
+                };
+
+                function lockViewport() {
+                    if (!window.visualViewport) {
+                        app.style.height = "100vh";
+                        app.style.top = "0";
+                        return;
+                    }
+                    const vv = window.visualViewport;
+                    app.style.height = Math.round(vv.height) + "px";
+                    app.style.top = Math.round(vv.offsetTop) + "px";
+                }
+                lockViewport();
+                if (window.visualViewport) {
+                    window.visualViewport.addEventListener("resize", () => {
+                        lockViewport();
+                        scrollLog();
+                    });
+                    window.visualViewport.addEventListener("scroll", lockViewport);
+                }
+                window.addEventListener("resize", lockViewport);
+                window.addEventListener("orientationchange", () => {
+                    setTimeout(lockViewport, 100);
+                });
+
+                /* ═══ ERROR PLACEHOLDER ANIMATION ═══
+     1. Fade out placeholder default
+     2. Ganti teks ke error, fade in
+     3. Tahan ERROR_HOLD_MS
+     4. Fade out error, ganti ke default, fade in
+  */
+                let errorTimeoutId = null;
+                function showInputError() {
+                    if (errorTimeoutId) clearTimeout(errorTimeoutId);
+
+                    input.classList.add("error");
+                    input.setAttribute("aria-invalid", "true");
+
+                    /* Fade out dulu → ganti → fade in */
+                    input.style.setProperty("--placeholder-opacity", "0");
+
+                    const ph = document.createElement("style");
+                    /* Karena pseudo ::placeholder tidak bisa di-animate via JS langsung,
+       kita pakai pendekatan: opacity via CSS variable yang di-evaluate
+       pseudo. Tapi pseudo-element tidak bisa set opacity dari JS dengan
+       mudah. Solusi: fade cepat dengan mengganti attribute placeholder
+       setelah opacity 0. Trik ini tetap mulus karena transisi placeholder
+       didukung via CSS transition pada ::placeholder. */
+                    document.getElementById("fyliaErrorStyle")?.remove();
+
+                    /* Set langsung: error muncul */
+                    requestAnimationFrame(() => {
+                        input.placeholder = INPUT_PLACEHOLDER_ERROR;
+                        input.classList.add("error");
+                    });
+
+                    errorTimeoutId = setTimeout(() => {
+                        /* Fade out error → ganti ke default → fade in */
+                        input.classList.remove("error");
+                        input.removeAttribute("aria-invalid");
+                        input.placeholder = INPUT_PLACEHOLDER_DEFAULT;
+                        errorTimeoutId = null;
+                    }, ERROR_HOLD_MS);
+                }
+
+                /* Saat user mulai mengetik, hilangkan error */
+                input.addEventListener("input", () => {
+                    if (errorTimeoutId) {
+                        clearTimeout(errorTimeoutId);
+                        errorTimeoutId = null;
+                    }
+                    if (input.classList.contains("error")) {
+                        input.classList.remove("error");
+                        input.removeAttribute("aria-invalid");
+                        input.placeholder = INPUT_PLACEHOLDER_DEFAULT;
+                    }
+                });
+
+                const addUserMsg = text => {
+                    const div = document.createElement("div");
+                    div.className = "msg-user";
+                    div.innerHTML = renderFullMarkdown(text);
+                    log.appendChild(div);
+                    scrollLog();
+                };
+
+                function buildFadeInHTML(plainText) {
+                    const frag = document.createDocumentFragment();
+                    const lines = String(plainText).split("\n");
+
+                    lines.forEach((line, lineIdx) => {
+                        if (lineIdx > 0) {
+                            frag.appendChild(document.createElement("br"));
+                        }
+                        const chars = Array.from(line);
+                        chars.forEach(ch => {
+                            const span = document.createElement("span");
+                            span.className = "char-fade";
+                            if (ch === " ") {
+                                span.classList.add("char-space");
+                                span.innerHTML = "&nbsp;";
+                            } else if (ch === "\t") {
+                                span.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;";
+                            } else {
+                                span.textContent = ch;
+                            }
+                            frag.appendChild(span);
+                        });
+                    });
+
+                    return frag;
+                }
+
+                const addBotMsgTyped = (text, stickerName, opts) => {
+                    opts = opts || {};
+                    const wrap = document.createElement("div");
+                    wrap.className = "msg-bot";
+
+                    const face = document.createElement("img");
+                    face.src = FYLIA_FACE;
+                    face.alt = "Fylia";
+                    face.className = "msg-bot-face";
+
+                    const content = document.createElement("div");
+                    content.className = "msg-bot-content";
+
+                    const stickerSrc = FYLIA_STICKER_MAP[stickerName];
+                    if (stickerSrc) {
+                        const stickerEl = document.createElement("div");
+                        stickerEl.className = "msg-bot-sticker";
+                        const img = document.createElement("img");
+                        img.src = stickerSrc;
+                        img.alt = stickerName;
+                        img.loading = "lazy";
+                        stickerEl.appendChild(img);
+                        content.appendChild(stickerEl);
+                    }
+
+                    let bubbleEl = null;
+
+                    if (text) {
+                        bubbleEl = document.createElement("div");
+                        bubbleEl.className = "msg-bot-bubble";
+                        bubbleEl.appendChild(buildFadeInHTML(text));
+                        content.appendChild(bubbleEl);
+                    }
+
+                    /* Tombol aksi (kalau AI memicunya) — dibuka di tab baru */
+                    const actionInfo = opts.action ? FYLIA_ACTION_MAP[opts.action] : null;
+                    if (actionInfo) {
+                        const actionEl = document.createElement("a");
+                        actionEl.className = "msg-action";
+                        actionEl.href = actionInfo.url;
+                        actionEl.target = "_blank";
+                        actionEl.rel = "noopener";
+                        actionEl.innerHTML =
+                            '<span class="material-icons-round">' + actionInfo.icon + "</span>" + actionInfo.label;
+                        content.appendChild(actionEl);
+                    }
+
+                    wrap.appendChild(face);
+                    wrap.appendChild(content);
+                    log.appendChild(wrap);
+                    scrollLog();
+
+                    if (!bubbleEl) return Promise.resolve();
+
+                    const chars = bubbleEl.querySelectorAll(".char-fade");
+                    if (opts.instant) {
+                        chars.forEach(c => {
+                            c.style.opacity = "1";
+                            c.style.animation = "none";
+                        });
+                        return Promise.resolve();
+                    }
+
+                    const perCharMs = opts.perCharMs || CHAR_DELAY_MS;
+                    chars.forEach((c, i) => {
+                        c.style.animationDelay = i * perCharMs + "ms";
+                    });
+
+                    const totalMs = chars.length * perCharMs + 400;
+                    return new Promise(resolve => {
+                        setTimeout(() => {
+                            bubbleEl.innerHTML = renderFullMarkdown(text);
+                            scrollLog();
+                            resolve();
+                        }, totalMs);
+                    });
+                };
+
+                const addWelcome = () => {
+                    addBotMsgTyped(
+                        "Hai! Aku Fylia, asisten portfolio Zhyllan, Ada yang bisa aku bantu terkait Zhyllan? 😊✨",
+                        "Sticker_Hello",
+                        { perCharMs: 8 },
+                    );
+                };
+
+                const updateModelBadge = model => {
+                    if (!model) return;
+                    if (modelName) modelName.textContent = shortModel(model);
+                    if (modelBadge) modelBadge.title = "Model AI: " + model;
+                };
+
+                const showTyping = () => {
+                    const wrap = document.createElement("div");
+                    wrap.className = "msg-typing";
+
+                    const face = document.createElement("img");
+                    face.src = FYLIA_FACE;
+                    face.alt = "Fylia";
+                    face.className = "msg-bot-face";
+
+                    const bubble = document.createElement("div");
+                    bubble.className = "typing-bubble";
+
+                    const svgNS = "http://www.w3.org/2000/svg";
+                    const svg = document.createElementNS(svgNS, "svg");
+                    svg.setAttribute("viewBox", "0 0 22 22");
+                    svg.setAttribute("class", "typing-morph");
+                    svg.setAttribute("aria-hidden", "true");
+                    const path = document.createElementNS(svgNS, "path");
+                    path.setAttribute("d", "");
+                    svg.appendChild(path);
+                    bubble.appendChild(svg);
+
+                    wrap.appendChild(face);
+                    wrap.appendChild(bubble);
+                    log.appendChild(wrap);
+                    scrollLog();
+
+                    const anim = createMorphAnimator(path, 22, {
+                        padding: 2,
+                        segmentMs: 700,
+                        rotationSpeed: 0.008,
+                    });
+
+                    return {
+                        remove: function () {
+                            anim.stop();
+                            wrap.remove();
+                        },
+                        el: wrap,
+                    };
+                };
+
+                input.addEventListener("focus", () => {
+                    setTimeout(scrollLog, 250);
+                    setTimeout(scrollLog, 600);
+                });
+
+                form.addEventListener("submit", async e => {
+                    e.preventDefault();
+                    const text = input.value.trim();
+
+                    /* ═══ VALIDASI INPUT KOSONG ═══ */
+                    if (!text) {
+                        if (busy) return;
+                        /* Kalau sudah ada error tampil, cukup restart hold timer */
+                        input.classList.remove("error");
+                        /* Force reflow supaya transisi placeholder reset */
+                        void input.offsetWidth;
+                        showInputError();
+                        input.focus();
+                        return;
+                    }
+
+                    if (busy) return;
+                    input.value = "";
+
+                    addUserMsg(text);
+                    history.push({ role: "user", content: text });
+
+                    const typingObj = showTyping();
+                    busy = true;
+                    sendBtn.disabled = true;
+
+                    const controller = new AbortController();
+                    const timer = setTimeout(() => controller.abort(), CHAT_TIMEOUT_MS);
+
+                    try {
+                        const res = await fetch(WORKER_URL + "/chat", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                messages: history.slice(-CHAT_MAX_HISTORY),
+                            }),
+                            signal: controller.signal,
+                        });
+                        const data = await res.json();
+                        const reply = data.reply || "Maaf, terjadi kendala: " + (data.error || res.status);
+
+                        typingObj.remove();
+
+                        await addBotMsgTyped(reply, data.sticker, {
+                            perCharMs: CHAR_DELAY_MS,
+                            action: data.action,
+                        });
+
+                        updateModelBadge(data.model);
+                        history.push({ role: "assistant", content: reply });
+                        if (history.length > CHAT_MAX_HISTORY * 2) {
+                            history.splice(0, history.length - CHAT_MAX_HISTORY);
+                        }
+                    } catch (err) {
+                        typingObj.remove();
+                        await addBotMsgTyped(
+                            err && err.name === "AbortError"
+                                ? "Waduh, AI-nya lama merespons. Coba lagi ya 🙏"
+                                : "Waduh, koneksi ke AI bermasalah. Coba lagi ya 🙏",
+                            null,
+                            { perCharMs: CHAR_DELAY_MS },
+                        );
+                    } finally {
+                        clearTimeout(timer);
+                        busy = false;
+                        sendBtn.disabled = false;
+                    }
+                });
+
+                const loader = $("#fyliaLoader");
+
+                setTimeout(() => {
+                    loader.classList.add("hidden");
+                    app.classList.add("visible");
+                    lockViewport();
+
+                    setTimeout(() => {
+                        addWelcome();
+                    }, 200);
+                }, LOADING_DURATION_MS);
+            })();
+        </script>
+    </body>
+</html>

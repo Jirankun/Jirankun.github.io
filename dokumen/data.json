@@ -1,0 +1,22 @@
+{
+    "cv": [
+        {
+            "name": "CV — Umum",
+            "file": "https://cdn.zhyllanfyllah.my.id/cdn/privite/document/cv/Zhyllan-fyllah_CurriculumVitae04-10-2026.pdf",
+            "type": "pdf",
+            "image": "https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/document/image/cv.png"
+        },
+        {
+            "name": "CV — Umum",
+            "file": "https://cdn.zhyllanfyllah.my.id/cdn/privite/document/cv/Zhyllan-fyllah_CurriculumVitae04-10-2026.docx",
+            "type": "docx",
+            "image": "https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/document/image/cv.png"
+        }
+    ],
+
+    "resume": [],
+
+    "sertifikat": [],
+
+    "lainnya": []
+}
