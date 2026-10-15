@@ -47,6 +47,7 @@
         <link href="https://cdn.zhyllanfyllah.my.id/cdn/privite/css/portofolio/1.0.0.css" rel="stylesheet" />
         <link href="https://cdn.zhyllanfyllah.my.id/cdn/public/css/all-icons/1.0.0.css" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+
         <link rel="preload" href="https://cdn.zhyllanfyllah.my.id/cdn/privite/css/portofolio/1.0.0.css" as="style" />
         <link
             rel="preload"
@@ -84,27 +85,19 @@
                             "https://zhydev.eu.org"
                         ],
                         "knowsAbout": ["HTML", "CSS", "JavaScript", "Kotlin", "Jetpack Compose", "Linux"],
-                        "nationality": {
-                            "@type": "Country",
-                            "name": "Indonesia"
-                        },
-                        "homeLocation": {
-                            "@type": "Place",
-                            "name": "Indonesia"
-                        },
+                        "nationality": { "@type": "Country", "name": "Indonesia" },
+                        "homeLocation": { "@type": "Place", "name": "Indonesia" },
                         "address": {
                             "@type": "PostalAddress",
                             "addressCountry": "ID",
                             "addressRegion": "Sumatera Barat"
                         },
-                        "alumniOf": {
-                            "@type": "School",
-                            "name": "SMKN 1 Lembah Melintang"
-                        }
+                        "alumniOf": { "@type": "School", "name": "SMKN 1 Lembah Melintang" }
                     }
                 ]
             }
         </script>
+
         <style>
             .notai-logo {
                 width: 130px;
@@ -117,30 +110,314 @@
             }
 
             @keyframes shake {
-                0% {
-                    transform: translateX(0);
-                }
-                2% {
-                    transform: translateX(-8px) rotate(-10deg);
-                }
-                4% {
-                    transform: translateX(8px) rotate(10deg);
-                }
-                6% {
-                    transform: translateX(-8px) rotate(-10deg);
-                }
-                8% {
-                    transform: translateX(8px) rotate(10deg);
-                }
-                10% {
-                    transform: translateX(0);
-                }
-                100% {
-                    transform: translateX(0);
-                }
+                0% { transform: translateX(0); }
+                2% { transform: translateX(-8px) rotate(-10deg); }
+                4% { transform: translateX(8px) rotate(10deg); }
+                6% { transform: translateX(-8px) rotate(-10deg); }
+                8% { transform: translateX(8px) rotate(10deg); }
+                10% { transform: translateX(0); }
+                100% { transform: translateX(0); }
             }
+
             .fab-ai-icon {
                 --ic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='40' d='M56 440L176 80L296 440M100 316H252M364 80V440'/%3E%3Cpath d='M448 48q0 52 52 52-52 0-52 52 0-52-52-52 52 0 52-52Z'/%3E%3C/svg%3E");
+            }
+
+            .audio-player-wrap {
+                position: relative;
+                margin: 12px 0;
+                width: 100%;
+                box-sizing: border-box;
+                z-index: 9000;
+            }
+
+            .audio-player {
+                background: #0a0a0a;
+                border: 1px solid #2a2a2a;
+                color: #e0e0e0;
+                font-size: 11px;
+                font-family: inherit;
+                box-sizing: border-box;
+                user-select: none;
+                -webkit-user-select: none;
+                position: relative;
+                z-index: 1;
+            }
+
+            .ap-controls {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                padding: 7px 10px;
+                box-sizing: border-box;
+            }
+
+            .ap-btn {
+                flex: 0 0 auto;
+                width: 22px;
+                height: 22px;
+                padding: 0;
+                background: transparent;
+                border: none;
+                color: #e0e0e0;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 0;
+                transition: background 0.12s;
+            }
+
+            .ap-btn:hover {
+                background: #1e1e1e;
+            }
+
+            .ap-btn:active {
+                background: #2a2a2a;
+            }
+
+            .ap-btn svg {
+                display: block;
+            }
+
+            .ap-progress {
+                flex: 1 1 auto;
+                min-width: 0;
+                height: 4px;
+                background: #2a2a2a;
+                position: relative;
+                cursor: pointer;
+                border-radius: 0;
+                overflow: visible;
+            }
+
+            .ap-progress-buffered {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 0%;
+                background: #4a4a4a;
+                border-radius: 0;
+                transition: width 0.15s linear;
+            }
+
+            .ap-progress-fill {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 0%;
+                background: #e0e0e0;
+                border-radius: 0;
+                z-index: 2;
+            }
+
+            .ap-progress-handle {
+                position: absolute;
+                top: 50%;
+                left: 0%;
+                width: 9px;
+                height: 9px;
+                background: #e0e0e0;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                border-radius: 0;
+                z-index: 3;
+            }
+
+            .ap-time {
+                flex: 0 0 auto;
+                font-size: 10px;
+                font-variant-numeric: tabular-nums;
+                color: #a0a0a0;
+                white-space: nowrap;
+                padding: 0 3px;
+                min-width: 62px;
+                text-align: center;
+            }
+
+            .ap-toggle {
+                width: 100%;
+                padding: 7px 10px;
+                background: #0a0a0a;
+                border: none;
+                border-top: 1px solid #2a2a2a;
+                color: #e0e0e0;
+                font-size: 10px;
+                font-family: inherit;
+                text-transform: uppercase;
+                letter-spacing: 0.6px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-radius: 0;
+                transition: background 0.12s;
+            }
+
+            .ap-toggle:hover {
+                background: #1a1a1a;
+            }
+
+            .ap-toggle__chevron {
+                transition: transform 0.2s ease;
+                display: block;
+            }
+
+            .ap-toggle.open .ap-toggle__chevron {
+                transform: rotate(180deg);
+            }
+
+            .ap-list {
+                display: none;
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 100%;
+                max-height: 240px;
+                overflow-y: auto;
+                background: #0a0a0a;
+                border: 1px solid #2a2a2a;
+                border-bottom: none;
+                border-radius: 0;
+                z-index: 2147483647;
+                box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.6);
+            }
+
+            .ap-list.open {
+                display: block;
+            }
+
+            .ap-list::-webkit-scrollbar { width: 6px; }
+            .ap-list::-webkit-scrollbar-track { background: #0a0a0a; }
+            .ap-list::-webkit-scrollbar-thumb { background: #333; }
+
+            .ap-track {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 7px 10px;
+                cursor: pointer;
+                border-left: 2px solid transparent;
+                border-radius: 0;
+                transition: background 0.12s;
+            }
+
+            .ap-track:hover {
+                background: #1a1a1a;
+            }
+
+            .ap-track.active {
+                background: #1a1a1a;
+                border-left-color: #e0e0e0;
+            }
+
+            .ap-track__num {
+                flex: 0 0 auto;
+                width: 16px;
+                text-align: right;
+                font-size: 10px;
+                color: #666;
+                font-variant-numeric: tabular-nums;
+            }
+
+            .ap-track.active .ap-track__num {
+                color: #e0e0e0;
+            }
+
+            .ap-track__info {
+                flex: 1 1 auto;
+                min-width: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 1px;
+            }
+
+            .ap-track__title {
+                font-size: 11px;
+                color: #e0e0e0;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                line-height: 1.3;
+            }
+
+            .ap-track.active .ap-track__title {
+                font-weight: 600;
+            }
+
+            .ap-track__artist {
+                font-size: 9.5px;
+                color: #777;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                line-height: 1.3;
+            }
+
+            .ap-volume-panel {
+                display: none;
+                position: absolute;
+                bottom: 100%;
+                right: 6px;
+                width: 40px;
+                padding: 12px 0 10px;
+                background: #0a0a0a;
+                border: 1px solid #2a2a2a;
+                border-bottom: none;
+                box-sizing: border-box;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+                z-index: 2147483647;
+                box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.6);
+            }
+
+            .ap-volume-panel.open {
+                display: flex;
+            }
+
+            .ap-volume-slider {
+                position: relative;
+                width: 8px;
+                height: 140px;
+                background: #2a2a2a;
+                cursor: pointer;
+                border-radius: 0;
+                touch-action: none;
+            }
+
+            .ap-volume-fill {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #e0e0e0;
+                border-radius: 0;
+                pointer-events: none;
+            }
+
+            .ap-volume-handle {
+                position: absolute;
+                left: 50%;
+                bottom: 100%;
+                width: 16px;
+                height: 8px;
+                background: #e0e0e0;
+                transform: translate(-50%, 50%);
+                pointer-events: none;
+                border-radius: 0;
+            }
+
+            .ap-volume-value {
+                font-size: 9.5px;
+                color: #a0a0a0;
+                font-variant-numeric: tabular-nums;
+                text-align: center;
+                min-width: 24px;
+                line-height: 1;
             }
         </style>
     </head>
@@ -178,7 +455,6 @@
                                     />
                                 </pattern>
                             </defs>
-
                             <path id="morphFramePath" fill="url(#photoFill)" />
                         </svg>
                     </div>
@@ -187,7 +463,58 @@
                     <div class="sidebar-role">Student | Web &amp; Mobile Developer</div>
                     <div class="sidebar-location">Indonesia</div>
                 </div>
-                <audio id="audio" controls="" preload="auto" src="https://jetta.vgmtreasurechest.com/soundtracks/d.c.-da-capo-super-best/sylndfqn/1-09.%20Sakura%20Saku%20Mirai%20Koi%20Yume.mp3"></audio>
+
+                <div class="audio-player-wrap">
+                    <div class="ap-list" id="apList"></div>
+
+                    <div class="ap-volume-panel" id="apVolumePanel">
+                        <div class="ap-volume-slider" id="apVolumeSlider">
+                            <div class="ap-volume-fill" id="apVolumeFill"></div>
+                            <div class="ap-volume-handle" id="apVolumeHandle"></div>
+                        </div>
+                        <div class="ap-volume-value" id="apVolumeValue">100</div>
+                    </div>
+
+                    <div class="audio-player" id="audioPlayer">
+                        <audio id="audioEl" preload="metadata"></audio>
+
+                        <div class="ap-controls">
+                            <button class="ap-btn" id="apPrev" type="button" aria-label="Track sebelumnya">
+                                <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
+                                    <rect x="2" y="3" width="2" height="10" fill="currentColor"/>
+                                    <polygon points="13,3 5,8 13,13" fill="currentColor"/>
+                                </svg>
+                            </button>
+
+                            <button class="ap-btn" id="apPlay" type="button" aria-label="Putar / Jeda"></button>
+
+                            <button class="ap-btn" id="apNext" type="button" aria-label="Track berikutnya">
+                                <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
+                                    <polygon points="3,3 11,8 3,13" fill="currentColor"/>
+                                    <rect x="12" y="3" width="2" height="10" fill="currentColor"/>
+                                </svg>
+                            </button>
+
+                            <div class="ap-progress" id="apProgress" role="slider" aria-label="Posisi audio">
+                                <div class="ap-progress-buffered" id="apBuffered"></div>
+                                <div class="ap-progress-fill" id="apFill"></div>
+                                <div class="ap-progress-handle" id="apHandle"></div>
+                            </div>
+
+                            <div class="ap-time" id="apTime">0:00 / 0:00</div>
+
+                            <button class="ap-btn" id="apVolume" type="button" aria-label="Volume"></button>
+                        </div>
+
+                        <button class="ap-toggle" id="apToggle" type="button" aria-expanded="false">
+                            <span class="ap-toggle__label">Playlist</span>
+                            <svg class="ap-toggle__chevron" viewBox="0 0 16 16" width="10" height="10" aria-hidden="true">
+                                <polyline points="3,6 8,11 13,6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
                 <div class="sidebar-bottom" id="links">
                     <h2 class="sidebar-label">Tautan</h2>
                     <a class="contact-item" href="https://github.com/jirankun" target="_blank" rel="noopener">
@@ -303,84 +630,19 @@
                 <section class="section">
                     <h2 class="section-title">Keahlian &amp; Alat</h2>
                     <div class="badge-grid">
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/Kotlin-7F52FF?style=flat&logo=kotlin&logoColor=white"
-                            alt="Kotlin"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/Jetpack_Compose-4285F4?style=flat&logo=jetpackcompose&logoColor=white"
-                            alt="Jetpack Compose"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/Android-3DDC84?style=flat&logo=android&logoColor=white"
-                            alt="Android"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white"
-                            alt="HTML5"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css&logoColor=white"
-                            alt="CSS3"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black"
-                            alt="JavaScript"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white"
-                            alt="Git"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white"
-                            alt="GitHub"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/VSCodium-007ACC?style=flat&logo=vscodium&logoColor=white"
-                            alt="VS Codium"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/Android_Studio-3DDC84?style=flat&logo=androidstudio&logoColor=white"
-                            alt="Android Studio"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/Gradle-02303A.svg?style=flat&logo=Gradle&logoColor=white"
-                            alt="Gradle"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/all/cachyos_badge.svg"
-                            alt="CachyOS"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/Cloudflare-f38020?style=flat&logo=cloudflare&logoColor=white"
-                            alt="Cloudflare"
-                        />
+                        <img loading="lazy" decoding="async" src="https://img.shields.io/badge/Kotlin-7F52FF?style=flat&logo=kotlin&logoColor=white" alt="Kotlin" />
+                        <img loading="lazy" decoding="async" src="https://img.shields.io/badge/Jetpack_Compose-4285F4?style=flat&logo=jetpackcompose&logoColor=white" alt="Jetpack Compose" />
+                        <img loading="lazy" decoding="async" src="https://img.shields.io/badge/Android-3DDC84?style=flat&logo=android&logoColor=white" alt="Android" />
+                        <img loading="lazy" decoding="async" src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white" alt="HTML5" />
+                        <img loading="lazy" decoding="async" src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css&logoColor=white" alt="CSS3" />
+                        <img loading="lazy" decoding="async" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black" alt="JavaScript" />
+                        <img loading="lazy" decoding="async" src="https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white" alt="Git" />
+                        <img loading="lazy" decoding="async" src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" alt="GitHub" />
+                        <img loading="lazy" decoding="async" src="https://img.shields.io/badge/VSCodium-007ACC?style=flat&logo=vscodium&logoColor=white" alt="VS Codium" />
+                        <img loading="lazy" decoding="async" src="https://img.shields.io/badge/Android_Studio-3DDC84?style=flat&logo=androidstudio&logoColor=white" alt="Android Studio" />
+                        <img loading="lazy" decoding="async" src="https://img.shields.io/badge/Gradle-02303A.svg?style=flat&logo=Gradle&logoColor=white" alt="Gradle" />
+                        <img loading="lazy" decoding="async" src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/all/cachyos_badge.svg" alt="CachyOS" />
+                        <img loading="lazy" decoding="async" src="https://img.shields.io/badge/Cloudflare-f38020?style=flat&logo=cloudflare&logoColor=white" alt="Cloudflare" />
                     </div>
                 </section>
 
@@ -414,7 +676,300 @@
                 <span class="fab-tip">Tanya Fylia AI</span>
             </a>
         </nav>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6754329161781195"
+
+        <script>
+            const playlist = [
+                {
+                    title: 'Kimi ni Sasageru Ai no Mahou~',
+                    artist: 'D.C. Da Capo',
+                    src: 'https://jetta.vgmtreasurechest.com/soundtracks/d.c.iii-da-capo-iii-vocal-album-2012/kztrevqt/01.%20Da%20Capo%20III%20~Kimi%20ni%20Sasageru%20Ai%20no%20Mahou~.mp3'
+                },
+                {
+                    title: 'Sakura Saku Mirai Koi Yume',
+                    artist: 'D.C. Da Capo',
+                    src: 'https://jetta.vgmtreasurechest.com/soundtracks/d.c.-da-capo-super-best/sylndfqn/1-09.%20Sakura%20Saku%20Mirai%20Koi%20Yume.mp3'
+                },
+                {
+                    title: 'Mirai no Melody',
+                    artist: 'D.C. Da Capo',
+                    src: 'https://jetta.vgmtreasurechest.com/soundtracks/d.c.-da-capo-super-best/saxlniad/1-10.%20Mirai%20e%20no%20Melody.mp3'
+                },
+                {
+                    title: 'Fetishism Ark',
+                    artist: 'Chaos;Head',
+                    src: 'https://nu.vgmtreasurechest.com/soundtracks/chaos-head-vocal-collection/fyyzdquz/1-14.%20Fetishism%20Ark.mp3'
+                },
+                {
+                    title: 'Bright Answer',
+                    artist: 'Yume Miru Mahou Shoujo to Koi no Jumon',
+                    src: 'https://nu.vgmtreasurechest.com/soundtracks/solfa-works-best-album-chronicle-cat-side-2013/ujongsxlsi/04.%20bright%20answer.mp3'
+                },
+                {
+                    title: '空恋',
+                    artist: 'Sorakoi',
+                    src: 'https://lambda.vgmtreasurechest.com/soundtracks/sorakoi-original-soundtrack-2015/ysusgecx/14.%20%E7%A9%BA%E6%81%8B.mp3'
+                },
+                {
+                    title: 'My Sweet Home',
+                    artist: 'Liber_7',
+                    src: 'https://nu.vgmtreasurechest.com/soundtracks/liber7-original-soundtrack-2016/lnfjtoybbx/1-03.%20My%20Sweet%20Home.mp3'
+                }
+            ];
+
+            const ICON_PLAY  = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><polygon points="3,2 13,8 3,14" fill="currentColor"/></svg>';
+            const ICON_PAUSE = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><rect x="4" y="2" width="3" height="12" fill="currentColor"/><rect x="9" y="2" width="3" height="12" fill="currentColor"/></svg>';
+            const ICON_VOL   = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><polygon points="2,6 5,6 8,3 8,13 5,10 2,10" fill="currentColor"/><path d="M10 5 Q12 8 10 11" stroke="currentColor" fill="none" stroke-width="1.2"/><path d="M11.5 3 Q14.5 8 11.5 13" stroke="currentColor" fill="none" stroke-width="1.2"/></svg>';
+            const ICON_MUTE  = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><polygon points="2,6 5,6 8,3 8,13 5,10 2,10" fill="currentColor"/><line x1="10.5" y1="5.5" x2="14.5" y2="10.5" stroke="currentColor" stroke-width="1.3"/><line x1="14.5" y1="5.5" x2="10.5" y2="10.5" stroke="currentColor" stroke-width="1.3"/></svg>';
+
+            const audio      = document.getElementById('audioEl');
+            const $play      = document.getElementById('apPlay');
+            const $prev      = document.getElementById('apPrev');
+            const $next      = document.getElementById('apNext');
+            const $progress  = document.getElementById('apProgress');
+            const $fill      = document.getElementById('apFill');
+            const $buffered  = document.getElementById('apBuffered');
+            const $handle    = document.getElementById('apHandle');
+            const $time      = document.getElementById('apTime');
+            const $volume    = document.getElementById('apVolume');
+            const $volPanel  = document.getElementById('apVolumePanel');
+            const $volSlider = document.getElementById('apVolumeSlider');
+            const $volFill   = document.getElementById('apVolumeFill');
+            const $volHandle = document.getElementById('apVolumeHandle');
+            const $volValue  = document.getElementById('apVolumeValue');
+            const $toggle    = document.getElementById('apToggle');
+            const $list      = document.getElementById('apList');
+
+            let currentIndex = 0;
+            let isSeeking = false;
+            let isVolumeDragging = false;
+
+            function formatTime(s) {
+                if (!isFinite(s) || s < 0) return '0:00';
+                const m = Math.floor(s / 60);
+                const ss = Math.floor(s % 60);
+                return m + ':' + String(ss).padStart(2, '0');
+            }
+
+            function escapeHtml(str) {
+                return String(str).replace(/[&<>"']/g, (c) => ({
+                    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+                }[c]));
+            }
+
+            function loadTrack(index, autoplay) {
+                currentIndex = (index + playlist.length) % playlist.length;
+                const track = playlist[currentIndex];
+                audio.src = track.src;
+                audio.load();
+                renderList();
+                if (autoplay) {
+                    const p = audio.play();
+                    if (p && p.catch) p.catch(() => {});
+                }
+            }
+
+            function togglePlay() {
+                if (audio.paused) {
+                    const p = audio.play();
+                    if (p && p.catch) p.catch(() => {});
+                } else {
+                    audio.pause();
+                }
+            }
+
+            function updatePlayIcon() {
+                $play.innerHTML = audio.paused ? ICON_PLAY : ICON_PAUSE;
+            }
+
+            function updateVolumeIcon() {
+                const vol = audio.muted ? 0 : audio.volume;
+                $volume.innerHTML = vol === 0 ? ICON_MUTE : ICON_VOL;
+            }
+
+            function updateVolumeUI() {
+                const vol = audio.muted ? 0 : audio.volume;
+                const pct = Math.max(0, Math.min(1, vol)) * 100;
+                $volFill.style.height = pct + '%';
+                $volHandle.style.bottom = pct + '%';
+                $volValue.textContent = Math.round(pct);
+                updateVolumeIcon();
+            }
+
+            function setVolumeFromEvent(e) {
+                const rect = $volSlider.getBoundingClientRect();
+                let pct = (rect.bottom - e.clientY) / rect.height;
+                pct = Math.max(0, Math.min(1, pct));
+                audio.muted = false;
+                audio.volume = pct;
+                if (pct === 0) audio.muted = true;
+                updateVolumeUI();
+            }
+
+            function updateBuffered() {
+                const dur = audio.duration;
+                if (!isFinite(dur) || dur <= 0) {
+                    $buffered.style.width = '0%';
+                    return;
+                }
+                let end = 0;
+                try {
+                    for (let i = 0; i < audio.buffered.length; i++) {
+                        if (audio.buffered.start(i) <= audio.currentTime && audio.currentTime <= audio.buffered.end(i)) {
+                            end = audio.buffered.end(i);
+                            break;
+                        }
+                        end = Math.max(end, audio.buffered.end(i));
+                    }
+                } catch (_) {}
+                const pct = Math.min(100, (end / dur) * 100);
+                $buffered.style.width = pct + '%';
+            }
+
+            function updateTimeUI() {
+                const cur = audio.currentTime || 0;
+                const dur = audio.duration || 0;
+                $time.textContent = formatTime(cur) + ' / ' + formatTime(dur);
+                const pct = dur > 0 ? (cur / dur) * 100 : 0;
+                $fill.style.width = pct + '%';
+                $handle.style.left = pct + '%';
+            }
+
+            function renderList() {
+                $list.innerHTML = '';
+                playlist.forEach((t, i) => {
+                    const el = document.createElement('div');
+                    el.className = 'ap-track' + (i === currentIndex ? ' active' : '');
+                    el.setAttribute('role', 'button');
+                    el.setAttribute('tabindex', '0');
+                    el.innerHTML =
+                        '<span class="ap-track__num">' + (i + 1) + '</span>' +
+                        '<span class="ap-track__info">' +
+                            '<span class="ap-track__title">' + escapeHtml(t.title) + '</span>' +
+                            '<span class="ap-track__artist">' + escapeHtml(t.artist) + '</span>' +
+                        '</span>';
+                    el.addEventListener('click', () => loadTrack(i, true));
+                    el.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            loadTrack(i, true);
+                        }
+                    });
+                    $list.appendChild(el);
+                });
+            }
+
+            audio.addEventListener('timeupdate', () => {
+                if (!isSeeking) updateTimeUI();
+                updateBuffered();
+            });
+            audio.addEventListener('progress', updateBuffered);
+            audio.addEventListener('loadedmetadata', () => {
+                updateTimeUI();
+                updateBuffered();
+            });
+            audio.addEventListener('durationchange', () => {
+                updateTimeUI();
+                updateBuffered();
+            });
+            audio.addEventListener('canplaythrough', updateBuffered);
+            audio.addEventListener('play', updatePlayIcon);
+            audio.addEventListener('pause', updatePlayIcon);
+            audio.addEventListener('volumechange', updateVolumeUI);
+            audio.addEventListener('ended', () => {
+                loadTrack(currentIndex + 1, true);
+            });
+
+            $play.addEventListener('click', togglePlay);
+            $prev.addEventListener('click', () => loadTrack(currentIndex - 1, true));
+            $next.addEventListener('click', () => loadTrack(currentIndex + 1, true));
+
+            $volume.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const open = $volPanel.classList.toggle('open');
+                if (open) $list.classList.remove('open');
+                if (open) {
+                    $toggle.classList.remove('open');
+                    $toggle.setAttribute('aria-expanded', 'false');
+                    $toggle.querySelector('.ap-toggle__label').textContent = 'Playlist';
+                }
+            });
+
+            $volSlider.addEventListener('pointerdown', (e) => {
+                isVolumeDragging = true;
+                $volSlider.setPointerCapture(e.pointerId);
+                setVolumeFromEvent(e);
+            });
+
+            $volSlider.addEventListener('pointermove', (e) => {
+                if (!isVolumeDragging) return;
+                setVolumeFromEvent(e);
+            });
+
+            $volSlider.addEventListener('pointerup', (e) => {
+                isVolumeDragging = false;
+                try { $volSlider.releasePointerCapture(e.pointerId); } catch (_) {}
+            });
+
+            $volSlider.addEventListener('pointercancel', () => {
+                isVolumeDragging = false;
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!$volPanel.contains(e.target) && !$volume.contains(e.target)) {
+                    $volPanel.classList.remove('open');
+                }
+            });
+
+            function seekFromEvent(e) {
+                const rect = $progress.getBoundingClientRect();
+                let pct = (e.clientX - rect.left) / rect.width;
+                pct = Math.max(0, Math.min(1, pct));
+                const dur = audio.duration;
+                if (isFinite(dur) && dur > 0) {
+                    audio.currentTime = pct * dur;
+                }
+                $fill.style.width = (pct * 100) + '%';
+                $handle.style.left = (pct * 100) + '%';
+                $time.textContent = formatTime(pct * dur) + ' / ' + formatTime(dur);
+            }
+
+            $progress.addEventListener('pointerdown', (e) => {
+                isSeeking = true;
+                $progress.setPointerCapture(e.pointerId);
+                seekFromEvent(e);
+            });
+
+            $progress.addEventListener('pointermove', (e) => {
+                if (!isSeeking) return;
+                seekFromEvent(e);
+            });
+
+            $progress.addEventListener('pointerup', (e) => {
+                isSeeking = false;
+                try { $progress.releasePointerCapture(e.pointerId); } catch (_) {}
+            });
+
+            $progress.addEventListener('pointercancel', () => {
+                isSeeking = false;
+            });
+
+            $toggle.addEventListener('click', () => {
+                const isOpen = $list.classList.toggle('open');
+                $toggle.classList.toggle('open', isOpen);
+                $toggle.setAttribute('aria-expanded', String(isOpen));
+                $toggle.querySelector('.ap-toggle__label').textContent = isOpen ? 'Tutup Playlist' : 'Playlist';
+                if (isOpen) $volPanel.classList.remove('open');
+            });
+
+            audio.volume = 1;
+            loadTrack(0, false);
+            updatePlayIcon();
+            updateVolumeUI();
+            updateTimeUI();
+            updateBuffered();
+        </script>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6754329161781195"
      crossorigin="anonymous"></script>
         <script src="https://cdn.zhyllanfyllah.my.id/cdn/privite/js/portofolio/1.0.0.js" defer></script>
     </body>
