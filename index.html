@@ -62,14 +62,13 @@
                     {
                         "@type": "Person",
                         "@id": "https://zhyllanfyllah.my.id#person",
-                        "name": "Zhyllan Fyllah",
+                        "name": "ZHYLLAN FYLLAH",
                         "alternateName": "Jirankun",
                         "givenName": "Zhyllan",
                         "additionalName": "Fyllah",
                         "honorificPrefix": "Student",
                         "honorificSuffix": "Web &amp; Mobile Developer",
-                        "email": "hello@zhyllanfyllah.my.id",
-                        "familyName": "Fyllah",
+                        "familyName": "Zhyllan",
                         "jobTitle": "Web &amp; Mobile Developer",
                         "description": "Pelajar di SMKN 1 Lembah Melintang jurusan Teknik Komputer dan Jaringan (TKJ). Web &amp; Mobile Developer. Linux enthusiast.",
                         "image": "https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/portofolio/favicon.png",
@@ -77,12 +76,12 @@
                         "sameAs": [
                             "https://github.com/Jirankun",
                             "https://www.zhyllanfyllah.my.id",
-                            "https://github.com/Jirankun",
                             "https://aokazestudio.zhyllanfyllah.my.id",
                             "https://osu-panel.zhyllanfyllah.my.id",
-                            "https://lab.zhyllanfyllah.my.id",
                             "https://radio.zhyllanfyllah.my.id",
-                            "https://gravatar.com/jirankun"
+                            "https://gravatar.com/jirankun",
+                            "https://zhyllanfyllah.is-a.dev",
+                            "https://zhydev.eu.org"
                         ],
                         "knowsAbout": ["HTML", "CSS", "JavaScript", "Kotlin", "Jetpack Compose", "Linux"],
                         "nationality": {
@@ -101,62 +100,6 @@
                         "alumniOf": {
                             "@type": "School",
                             "name": "SMKN 1 Lembah Melintang"
-                        }
-                    },
-                    {
-                        "@type": "WebSite",
-                        "@id": "https://zhyllanfyllah.my.id#website",
-                        "name": "Zhyllan Fyllah",
-                        "url": "https://zhyllanfyllah.my.id",
-                        "description": "Portfolio Zhyllan Fyllah — Pelajar SMKN 1 Lembah Melintang, Web &amp; Mobile Developer",
-                        "inLanguage": "id-ID",
-                        "creator": {
-                            "@id": "https://zhyllanfyllah.my.id#person"
-                        }
-                    },
-                    {
-                        "@type": "WebPage",
-                        "@id": "https://zhyllanfyllah.my.id#webpage",
-                        "name": "Zhyllan Fyllah — Web &amp; Mobile Developer",
-                        "url": "https://zhyllanfyllah.my.id",
-                        "description": "Portfolio Zhyllan Fyllah — Pelajar SMKN 1 Lembah Melintang, Web &amp; Mobile Developer",
-                        "inLanguage": "id-ID",
-                        "isPartOf": {
-                            "@id": "https://zhyllanfyllah.my.id#website"
-                        },
-                        "about": {
-                            "@id": "https://zhyllanfyllah.my.id#person"
-                        },
-                        "primaryImageOfPage": "https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/portofolio/favicon.png",
-                        "dateModified": "2025-09-28T00:00:00+09:52",
-                        "breadcrumb": {
-                            "@type": "BreadcrumbList",
-                            "itemListElement": [
-                                {
-                                    "@type": "ListItem",
-                                    "position": 1,
-                                    "name": "Beranda",
-                                    "item": "https://zhyllanfyllah.my.id"
-                                },
-                                {
-                                    "@type": "ListItem",
-                                    "position": 2,
-                                    "name": "Tentang",
-                                    "item": "https://zhyllanfyllah.my.id#about"
-                                },
-                                {
-                                    "@type": "ListItem",
-                                    "position": 3,
-                                    "name": "Repositori",
-                                    "item": "https://zhyllanfyllah.my.id#repos"
-                                },
-                                {
-                                    "@type": "ListItem",
-                                    "position": 4,
-                                    "name": "Tautan",
-                                    "item": "https://zhyllanfyllah.my.id#links"
-                                }
-                            ]
                         }
                     }
                 ]
@@ -196,10 +139,6 @@
                     transform: translateX(0);
                 }
             }
-
-            /* Ikon AI di FAB — memakai mekanisme mask .ic (warna ikut currentColor).
-               Dipakai versi data-URI agar langsung tampil tanpa menunggu file
-               cdn.../all-icons/ai.svg siap di CDN. */
             .fab-ai-icon {
                 --ic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='40' d='M56 440L176 80L296 440M100 316H252M364 80V440'/%3E%3Cpath d='M448 48q0 52 52 52-52 0-52 52 0-52-52-52 52 0 52-52Z'/%3E%3C/svg%3E");
             }
@@ -248,7 +187,7 @@
                     <div class="sidebar-role">Student | Web &amp; Mobile Developer</div>
                     <div class="sidebar-location">Indonesia</div>
                 </div>
-
+                <audio id="audio" controls="" preload="auto" src="https://jetta.vgmtreasurechest.com/soundtracks/d.c.-da-capo-super-best/sylndfqn/1-09.%20Sakura%20Saku%20Mirai%20Koi%20Yume.mp3"></audio>
                 <div class="sidebar-bottom" id="links">
                     <h2 class="sidebar-label">Tautan</h2>
                     <a class="contact-item" href="https://github.com/jirankun" target="_blank" rel="noopener">
@@ -258,10 +197,6 @@
                     <a class="contact-item" href="https://www.zhyllanfyllah.my.id" target="_blank" rel="noopener">
                         <span class="material-icons-round">link</span>
                         www.zhyllanfyllah.my.id
-                    </a>
-                    <a class="contact-item" href="https://lab.zhyllanfyllah.my.id" target="_blank" rel="noopener">
-                        <span class="material-icons-round">link</span>
-                        lab.zhyllanfyllah.my.id
                     </a>
                     <a
                         class="contact-item"
