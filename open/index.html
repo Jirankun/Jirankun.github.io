@@ -170,10 +170,16 @@
                 var widgetId = null;
 
                 function getSlug() {
-                    var search = window.location.search || "";
-                    var hash = window.location.hash || "";
-                    var raw = (search + hash).replace(/^[?&=]+/, "").toLowerCase();
-                    return raw.split(/[&=]/)[0].trim();
+                    var search = new URLSearchParams(window.location.search || "");
+                    var hash = new URLSearchParams((window.location.hash || "").replace(/^#/, ""));
+                    var slug = search.get("slug") || hash.get("slug");
+
+                    if (!slug) {
+                        var legacy = window.location.search || window.location.hash || "";
+                        slug = legacy.replace(/^[?#&=]+/, "").split(/[&=]/)[0];
+                    }
+
+                    return (slug || "").trim().toLowerCase();
                 }
 
                 function setStatus(text) {
