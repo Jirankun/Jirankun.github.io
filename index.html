@@ -19,19 +19,13 @@
             property="og:description"
             content="Portofolio pribadi Zhyllan Fyllah — student & developer dari Indonesia."
         />
-        <meta
-            property="og:image"
-            content="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/portofolio/og-image.jpg"
-        />
+        <meta property="og:image" content="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/all/banner.png" />
         <meta property="og:url" content="https://zhyllanfyllah.my.id" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Zhyllan Fyllah — Web &amp; Mobile Developer" />
         <meta name="twitter:description" content="Portofolio pribadi Zhyllan Fyllah." />
-        <meta
-            name="twitter:image"
-            content="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/portofolio/og-image.jpg"
-        />
+        <meta name="twitter:image" content="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/all/banner.png" />
         <link rel="canonical" href="https://zhyllanfyllah.my.id" />
         <link
             rel="icon"
@@ -51,11 +45,7 @@
         <link href="https://cdn.zhyllanfyllah.my.id/cdn/public/css/audio-player/1.0.0.css" rel="stylesheet" />
 
         <link rel="preload" href="https://cdn.zhyllanfyllah.my.id/cdn/privite/css/portofolio/1.0.0.css" as="style" />
-        <link
-            rel="preload"
-            href="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/portofolio/banner.webp"
-            as="image"
-        />
+        <link rel="preload" href="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/all/banner.png" as="image" />
         <link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" as="style" />
 
         <script type="application/ld+json">
@@ -99,9 +89,6 @@
                 ]
             }
         </script>
-
-        
-
     </head>
     <body>
         <div class="page">
@@ -134,6 +121,7 @@
                                         width="140"
                                         height="140"
                                         preserveAspectRatio="xMidYMid slice"
+                                        alt=""
                                     />
                                 </pattern>
                             </defs>
@@ -146,9 +134,6 @@
                     <div class="sidebar-location">Indonesia</div>
                 </div>
 
-                <!-- Cukup tulis tag <audio> biasa. CSS + JS audio-player
-                     otomatis membuat player; beberapa <audio> dalam satu
-                     wadah otomatis menjadi playlist. -->
                 <div class="sidebar-audio" data-audio-group>
                     <audio
                         controls
@@ -252,7 +237,7 @@
                 <div class="hero-banner" id="heroBanner">
                     <img
                         src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/portofolio/board.png"
-                        alt="Papan Tulis"
+                        alt=""
                         class="hero-banner__img"
                     />
 
@@ -263,7 +248,7 @@
                             <div class="hero-card" role="button" tabindex="0" data-logo="logo1.png" data-alt="Logo 1">
                                 <img
                                     src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/all/smkbisahebat.png"
-                                    alt="Logo 1"
+                                    alt=""
                                     class="hero-card__logo"
                                 />
                                 <h3 class="hero-card__name">SMK Bisa - Hebat</h3>
@@ -284,9 +269,15 @@
                 <section class="section" id="about">
                     <h2 class="section-title">Tentang</h2>
                     <div class="about-text">
-                        <p>Halo</p>
+                        <p>Halo🤗</p>
                         <p>
-                            Kenalin,saya Zhyllan Fyllah, seorang siswa
+                            Kenalin,saya
+                            <a
+                                href="https://www.google.com/search?client=firefox-b-d&channel=entpr&q=Zhyllan%20Fyllah"
+                                target="_blank"
+                                rel="noopener"
+                                >Zhyllan Fyllah</a
+                            >, seorang siswa
                             <strong
                                 ><a href="https://smkn1lembahmelintang.sch.id" target="_blank" rel="noopener"
                                     >SMKN 1 Lembah Melintang</a
@@ -302,12 +293,12 @@
                             utama.
                         </p>
                         <p>
-                            Aktif di GitHub — mulai dari proyek open source seperti Umma Quran Indonesia, dan ikut
-                            berkontribusi dalam proyek
+                            Aktif di GitHub — mulai dari proyek open source, dan ikut berkontribusi dalam proyek
                             <a
                                 href="https://github.com/chthollyphile/folia-major/blob/main/CONTRIBUTORS.md"
                                 target="_blank"
                                 rel="noopener"
+                                decoding="auto"
                                 >folia-major</a
                             >.
                         </p>
@@ -327,7 +318,11 @@
                         <div class="fallback">
                             Statistik GitHub sedang mengalami gangguan.<br />
                             Kunjungi
-                            <a href="https://github.com/Jirankun" style="color: var(--md-sys-color-primary)"
+                            <a
+                                href="https://github.com/Jirankun"
+                                target="_blank"
+                                rel="noopener"
+                                style="color: var(--md-sys-color-primary)"
                                 >github.com/jirankun</a
                             >
                         </div>
@@ -337,84 +332,114 @@
                 <section class="section">
                     <h2 class="section-title">Keahlian &amp; Alat</h2>
                     <div class="badge-grid">
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/Kotlin-7F52FF?style=flat&logo=kotlin&logoColor=white"
-                            alt="Kotlin"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/Jetpack_Compose-4285F4?style=flat&logo=jetpackcompose&logoColor=white"
-                            alt="Jetpack Compose"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/Android-3DDC84?style=flat&logo=android&logoColor=white"
-                            alt="Android"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white"
-                            alt="HTML5"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css&logoColor=white"
-                            alt="CSS3"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black"
-                            alt="JavaScript"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white"
-                            alt="Git"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white"
-                            alt="GitHub"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/VSCodium-007ACC?style=flat&logo=vscodium&logoColor=white"
-                            alt="VS Codium"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/Android_Studio-3DDC84?style=flat&logo=androidstudio&logoColor=white"
-                            alt="Android Studio"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/Gradle-02303A.svg?style=flat&logo=Gradle&logoColor=white"
-                            alt="Gradle"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/all/cachyos_badge.svg"
-                            alt="CachyOS"
-                        />
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src="https://img.shields.io/badge/Cloudflare-f38020?style=flat&logo=cloudflare&logoColor=white"
-                            alt="Cloudflare"
-                        />
+                        <a href="https://kotlinlang.org" target="_blank" rel="noopener">
+                            <img
+                                loading="lazy"
+                                decoding="async"
+                                src="https://img.shields.io/badge/Kotlin-7F52FF?style=flat&logo=kotlin&logoColor=white"
+                                alt="Kotlin"
+                            />
+                        </a>
+                        <a href="https://developer.android.com/jetpack/compose" target="_blank" rel="noopener">
+                            <img
+                                loading="lazy"
+                                decoding="async"
+                                src="https://img.shields.io/badge/Jetpack_Compose-4285F4?style=flat&logo=jetpackcompose&logoColor=white"
+                                alt="Jetpack Compose"
+                            />
+                        </a>
+                        <a href="https://developer.android.com" target="_blank" rel="noopener">
+                            <img
+                                loading="lazy"
+                                decoding="async"
+                                src="https://img.shields.io/badge/Android-3DDC84?style=flat&logo=android&logoColor=white"
+                                alt="Android"
+                            />
+                        </a>
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener">
+                            <img
+                                loading="lazy"
+                                decoding="async"
+                                src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white"
+                                alt="HTML5"
+                            />
+                        </a>
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener">
+                            <img
+                                loading="lazy"
+                                decoding="async"
+                                src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css&logoColor=white"
+                                alt="CSS3"
+                            />
+                        </a>
+                        <a
+                            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            <img
+                                loading="lazy"
+                                decoding="async"
+                                src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black"
+                                alt="JavaScript"
+                            />
+                        </a>
+                        <a href="https://git-scm.com/" target="_blank" rel="noopener">
+                            <img
+                                loading="lazy"
+                                decoding="async"
+                                src="https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white"
+                                alt="Git"
+                            />
+                        </a>
+                        <a href="https://github.com/" target="_blank" rel="noopener">
+                            <img
+                                loading="lazy"
+                                decoding="async"
+                                src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white"
+                                alt="GitHub"
+                            />
+                        </a>
+                        <a href="https://vscodium.com/" target="_blank" rel="noopener">
+                            <img
+                                loading="lazy"
+                                decoding="async"
+                                src="https://img.shields.io/badge/VSCodium-007ACC?style=flat&logo=vscodium&logoColor=white"
+                                alt="VS Codium"
+                            />
+                        </a>
+                        <a href="https://developer.android.com/studio" target="_blank" rel="noopener">
+                            <img
+                                loading="lazy"
+                                decoding="async"
+                                src="https://img.shields.io/badge/Android_Studio-3DDC84?style=flat&logo=androidstudio&logoColor=white"
+                                alt="Android Studio"
+                            />
+                        </a>
+                        <a href="https://gradle.org/" target="_blank" rel="noopener">
+                            <img
+                                loading="lazy"
+                                decoding="async"
+                                src="https://img.shields.io/badge/Gradle-02303A.svg?style=flat&logo=Gradle&logoColor=white"
+                                alt="Gradle"
+                            />
+                        </a>
+                        <a href="https://cachyos.org/" target="_blank" rel="noopener">
+                            <img
+                                loading="lazy"
+                                decoding="async"
+                                src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/all/cachyos_badge.svg"
+                                alt="CachyOS"
+                            />
+                        </a>
+                        <a href="https://cloudflare.com" target="_blank" rel="noopener">
+                            <img
+                                loading="lazy"
+                                decoding="async"
+                                src="https://img.shields.io/badge/Cloudflare-f38020?style=flat&logo=cloudflare&logoColor=white"
+                                alt="Cloudflare"
+                            />
+                        </a>
                     </div>
                 </section>
 
@@ -435,15 +460,15 @@
         </div>
 
         <nav class="fab" aria-label="Tautan cepat">
-            <a class="fab-item" href="./dokumen" target="_blank" rel="noopener">
+            <a class="fab-item" href="https://zhyllanfyllah.my.id/dokumen" target="_blank" rel="noopener">
                 <span class="material-icons-round">description</span>
                 <span class="fab-tip">Index Dokumen</span>
             </a>
-            <a class="fab-item" href="https://zhyllanfyllah.my.id/open">
+            <a class="fab-item" href="https://zhyllanfyllah.my.id/open" target="_blank" rel="noopener">
                 <span class="material-icons-round">chat</span>
                 <span class="fab-tip">Kontak &amp; Tautan</span>
             </a>
-            <a class="fab-item" href="/ai/">
+            <a class="fab-item" href="https://zhyllanfyllah.my.id/ai" target="_blank" rel="noopener">
                 <span class="ic fab-ai-icon" aria-hidden="true"></span>
                 <span class="fab-tip">Tanya Fylia AI</span>
             </a>
@@ -457,8 +482,5 @@
             crossorigin="anonymous"
         ></script>
         <script src="https://cdn.zhyllanfyllah.my.id/cdn/privite/js/portofolio/1.0.0.js" defer></script>
-
-        
-
     </body>
 </html>
