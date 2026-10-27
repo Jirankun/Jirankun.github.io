@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=0.8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="icon" type="image/png" href="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/portofolio/favicon.png"/>
 <meta name="robots" content="noindex, nofollow">
 <title>Pray Palestine | Zhyllan Fyllah</title>
@@ -15,11 +15,11 @@
     font-family: Verdana, Geneva, Arial, sans-serif;
     font-size: 13px;
     line-height: 1.6;
-    min-width: 1024px; /* Locks desktop width */
+    /* HAPUS min-width: 1024px; BIAR BISA RESPONSIVE */
   }
   a { color: #004d2c; text-decoration: none; }
   a:hover { color: #c00; text-decoration: underline; }
-  
+
   /* Matikan klik untuk GIF biasa */
   .no-click {
     pointer-events: none;
@@ -28,7 +28,8 @@
 
   /* ===== MAIN CONTAINER ===== */
   #page {
-    width: 1000px;
+    width: 100%;
+    max-width: 1000px; /* Ganti min-width jadi max-width */
     margin: 0 auto;
     background: #fff;
     border-left: 1px solid #ccc;
@@ -47,6 +48,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap; /* Biar turun ke bawah kalo layar sempit */
+    gap: 15px;
   }
   #header .brand {
     display: flex;
@@ -69,8 +72,9 @@
   #content {
     padding: 40px;
     max-width: 850px;
-    margin: 0 auto; /* Center the text column */
+    margin: 0 auto;
     flex: 1;
+    width: 100%; /* Pastikan muat di mobile */
   }
 
   h2 {
@@ -92,11 +96,13 @@
   .img-left {
     float: left;
     margin: 5px 20px 10px 0;
+    max-width: 100%; /* Biar gak jebol di mobile */
   }
   .img-right {
     float: right;
     margin: 5px 0 10px 20px;
     border: 1px solid #ccc;
+    max-width: 100%;
   }
 
   /* Clearfix untuk teks agar tidak menabrak float */
@@ -128,7 +134,8 @@
   }
   .btn-gif img {
     display: block;
-    max-height: 60px; /* Sesuaikan ukuran tombol */
+    max-height: 60px;
+    max-width: 100%; /* Responsif */
   }
 
   /* ===== DONATION LIST ===== */
@@ -186,6 +193,43 @@
     font-size: 11px;
     line-height: 1.6;
   }
+
+  /* ===== MOBILE RESPONSIVE FIX ===== */
+  @media (max-width: 768px) {
+    #page {
+      border: none;
+      box-shadow: none;
+      width: 100%;
+    }
+    #header {
+      padding: 20px;
+      flex-direction: column;
+      text-align: center;
+    }
+    #header .brand {
+      flex-direction: column;
+      gap: 10px;
+    }
+    #header .tagline {
+      text-align: center;
+    }
+    #content {
+      padding: 20px;
+    }
+    h2 {
+      font-size: 20px;
+    }
+    /* Matikan float di mobile biar gambar rapi di tengah */
+    .img-left, .img-right {
+      float: none;
+      display: block;
+      margin: 15px auto;
+      max-width: 100%;
+    }
+    .notes {
+      padding: 15px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -208,14 +252,14 @@
   <main id="content">
 
     <h2>Stand for Humanity</h2>
-    
+
     <!-- GIF di sekitar teks -->
     <img src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/palestine/multi.gif" alt="Multi Flag" class="img-left no-click">
     <p>The humanitarian crisis in Palestine demands our immediate attention and action. This single-page archive is dedicated to providing verified, transparent, and direct channels for you to offer support. Every contribution—no matter how small—plays a crucial role in providing food, medical aid, and shelter to those in desperate need.</p>
-    
+
     <img src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/palestine/blbehuman.gif" alt="Be Human" class="img-right no-click">
     <p>We must not turn a blind eye to the suffering. By utilizing the official resources listed below, you can ensure that your donations reach the people who need them most, bypassing potential scams and ensuring maximum impact. Let us turn compassion into tangible relief.</p>
-    
+
     <div class="clear"></div>
 
     <!-- TOMBOL UTAMA (bufreepalestine.gif) -->
@@ -252,7 +296,7 @@
     </div>
 
     <h2>Important Notes Before Donating</h2>
-    
+
     <img src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/palestine/stampbehuman.jpg" alt="Stamp Be Human" class="img-right no-click" style="max-width: 150px;">
     <div class="notes">
       <h3>⚠️ Please Read Carefully</h3>
