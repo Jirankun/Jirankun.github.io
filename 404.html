@@ -1,34 +1,143 @@
-<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 Not Found</title>
-    <link rel="icon" type="image/png" href="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/portofolio/favicon.png"/>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            font-size: 40px;
-        }
-        p {
-            font-size: 20px;
-        }
-        a {
-            color: #007BFF;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <img src="https://cdn.zhyllanfyllah.my.id/cdn/public/assets/portofolio/404.jpg" style="max-width: 23%; max-height: 23%;" alt="" />
-    <h1>404</h1>
-    <p>Oops! Halaman Gak di Temuin nih.</p>
-    <p><a href="/">Kembali ke halaman utama</a></p>
-</body>
+<!doctype html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>404 — File Tidak Ditemukan</title>
+        <meta name="description" content="File yang Anda cari tidak ditemukan atau telah dihapus." />
+        <meta name="robots" content="noindex, nofollow" />
+        <meta name="theme-color" content="#141218" />
+        <link
+            rel="icon"
+            type="image/png"
+            href="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/portofolio/favicon.png"
+        />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://cdn.zhyllanfyllah.my.id" crossorigin />
+        <link rel="stylesheet" href="https://cdn.zhyllanfyllah.my.id/cdn/public/css/materialZ/1.0.0.css" />
+        <style>
+            @font-face {
+                font-family: Chillax;
+                src: url("https://cdn.zhyllanfyllah.my.id/cdn/privite/fonts/format/woff2/Chillax-Regular.woff2")
+                    format("woff2");
+                font-weight: 400;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: Chillax;
+                src: url("https://cdn.zhyllanfyllah.my.id/cdn/privite/fonts/format/woff2/Chillax-Semibold.woff2")
+                    format("woff2");
+                font-weight: 600;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Plus Jakarta Sans";
+                src: url("https://cdn.zhyllanfyllah.my.id/cdn/privite/fonts/format/woff2/PlusJakartaSans-Regular.woff2")
+                    format("woff2");
+                font-weight: 200 800;
+                font-display: swap;
+            }
+            :root {
+                --m3-font-brand: "Chillax", system-ui, sans-serif;
+                --m3-font-plain: "Plus Jakarta Sans", system-ui, sans-serif;
+            }
+            *,
+            ::after,
+            ::before {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body,
+            html {
+                height: 100%;
+            }
+            body {
+                font-family: var(--m3-font-plain);
+                background: var(--m3-surface, #141218);
+                color: var(--m3-on-surface, #e6e0e9);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                padding: 32px 24px;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+            .error-wrap {
+                text-align: center;
+                max-width: 480px;
+                width: 100%;
+            }
+            .error-code {
+                font-family: var(--m3-font-brand);
+                font-size: 96px;
+                font-weight: 700;
+                line-height: 1;
+                letter-spacing: -0.04em;
+                color: var(--m3-primary, #d0bcff);
+                margin-bottom: 16px;
+                user-select: none;
+            }
+            .error-title {
+                font-family: var(--m3-font-brand);
+                font-size: 24px;
+                font-weight: 600;
+                letter-spacing: -0.01em;
+                color: var(--m3-on-surface, #e6e0e9);
+                margin-bottom: 10px;
+            }
+            .error-desc {
+                font-family: var(--m3-font-plain);
+                font-size: 14px;
+                line-height: 1.6;
+                color: var(--m3-on-surface-variant, #cac4d0);
+                margin-bottom: 32px;
+            }
+            .error-divider {
+                width: 64px;
+                height: 1px;
+                background: var(--m3-outline-variant, #49454f);
+                margin: 32px auto;
+                border: none;
+            }
+            .error-footer {
+                font-family: var(--m3-font-plain);
+                font-size: 12px;
+                color: var(--m3-on-surface-variant, #cac4d0);
+            }
+            .error-footer a {
+                color: var(--m3-primary, #d0bcff);
+                text-decoration: none;
+            }
+            .error-footer a:hover {
+                text-decoration: underline;
+            }
+            @media (max-width: 480px) {
+                .error-code {
+                    font-size: 72px;
+                }
+                .error-title {
+                    font-size: 20px;
+                }
+                .error-desc {
+                    font-size: 13px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="error-wrap">
+            <div class="error-code">404</div>
+            <h1 class="error-title">File Tidak Ditemukan</h1>
+            <p class="error-desc">
+                File yang Anda cari tidak ditemukan atau telah dihapus. Periksa kembali tautan Anda, atau kembali ke
+                halaman utama.
+            </p>
+            <hr class="error-divider" />
+            <footer class="error-footer">
+                © 2025 <a href="https://zhyllanfyllah.my.id">Zhyllan Fyllah</a> — Jirankun
+            </footer>
+        </div>
+    </body>
 </html>
