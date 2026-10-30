@@ -1,0 +1,27 @@
+html {
+    user-select: none;
+}
+body {
+    background: #cac8c4;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.paragraf-1 {
+    color: blue;
+}
+
+a {
+    color: red;
+}
+
+a:hover {
+    color: green;
+}
+
+.angka-urutan {
+    font-weight: bold;
+}
+
+.atas {
+    font-style: italic;
+}
