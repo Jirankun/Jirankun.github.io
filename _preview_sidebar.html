@@ -1,11 +1,13 @@
 <!doctype html>
-<html lang="id"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="./My-assets-CDN/cdn/public/css/materialZ/1.0.0.css">
-<link rel="stylesheet" href="./My-assets-CDN/cdn/privite/css/portofolio/1.0.0.css">
-<link rel="stylesheet" href="./My-assets-CDN/cdn/public/css/audio-player/1.0.0.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
-<style>
+<html lang="id">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="./My-assets-CDN/cdn/public/css/materialZ/1.0.0.css" />
+        <link rel="stylesheet" href="./My-assets-CDN/cdn/privite/css/portofolio/1.0.0.css" />
+        <link rel="stylesheet" href="./My-assets-CDN/cdn/public/css/audio-player/1.0.0.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" />
+        <style>
             /* Latar sidebar (CSS-nya ada di portofolio/1.0.0.css).
                Sekarang memakai berkas lokal di dalam repo agar bisa dites.
                Setelah gambar diunggah ke CDN, ganti nilainya menjadi:
@@ -91,7 +93,9 @@
                         ),
                         var(--sidebar-bg-image, none);
                     background-size: cover, cover;
-                    background-position: center, center 25%;
+                    background-position:
+                        center,
+                        center 25%;
                     background-repeat: no-repeat, no-repeat;
                 }
 
@@ -158,41 +162,69 @@
                 }
             }
         </style>
-</head><body>
-<div class="page">
-  <aside class="sidebar">
-    <div class="sidebar-top">
-      <div class="profile-photo-wrap">
-        <svg class="morph-svg" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
-          <defs><pattern id="photoFill" patternUnits="userSpaceOnUse" x="0" y="0" width="140" height="140">
-            <image href="./My-assets-CDN/cdn/privite/assets/portofolio/favicon.png" x="0" y="0" width="140" height="140" preserveAspectRatio="xMidYMid slice">
-          </pattern></defs>
-          <path id="morphFramePath" fill="url(#photoFill)">
-        </svg>
-      </div>
-      <h1 class="sidebar-name">Zhyllan Fyllah</h1>
-      <div class="sidebar-role">Student | Web &amp; Mobile Developer</div>
-      <div class="sidebar-location">Indonesia</div>
-    </div>
-    <div class="sidebar-audio" data-audio-group>
-      <audio controls preload="none" src="a.mp3" data-title="Lagu A" data-artist="Artis A"></audio>
-      <audio controls preload="none" src="b.mp3" data-title="Lagu B" data-artist="Artis B"></audio>
-      <audio controls preload="none" src="c.mp3" data-title="Lagu C" data-artist="Artis C"></audio>
-    </div>
-    <div class="sidebar-bottom" id="links">
-      <h2 class="sidebar-label">Tautan</h2>
-      <a class="contact-item" href="#"><span class="material-icons-round">code</span>github.com/jirankun</a>
-      <a class="contact-item" href="#"><span class="material-icons-round">link</span>www.zhyllanfyllah.my.id</a>
-      <a class="contact-item" href="#"><span class="material-icons-round">link</span>aokazestudio.zhyllanfyllah.my.id</a>
-      <a class="contact-item" href="#"><span class="material-icons-round">link</span>radio.zhyllanfyllah.my.id</a>
-    </div>
-  </aside>
-  <main class="main">
-    <div style="height:160px;background:#2b2930;border:1px solid #36343b"></div>
-    <section class="section"><h2 class="section-title">Tentang</h2>
-      <div class="about-text"><p>Contoh konten utama untuk mengukur sisa lebar kolom di mobile.</p></div></section>
-    <div class="footer">&copy; 2026 Zhyllan Fyllah &mdash; Jirankun</div>
-  </main>
-</div>
-<script src="./My-assets-CDN/cdn/public/js/audio-player/1.0.0.js" defer></script>
-</body></html>
+    </head>
+    <body>
+        <div class="page">
+            <aside class="sidebar">
+                <div class="sidebar-top">
+                    <div class="profile-photo-wrap">
+                        <svg class="morph-svg" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <pattern
+                                    id="photoFill"
+                                    patternUnits="userSpaceOnUse"
+                                    x="0"
+                                    y="0"
+                                    width="140"
+                                    height="140"
+                                >
+                                    <image
+                                        href="./My-assets-CDN/cdn/privite/assets/portofolio/favicon.png"
+                                        x="0"
+                                        y="0"
+                                        width="140"
+                                        height="140"
+                                        preserveAspectRatio="xMidYMid slice"
+                                    ></image>
+                                </pattern>
+                            </defs>
+                            <path id="morphFramePath" fill="url(#photoFill)"></path>
+                        </svg>
+                    </div>
+                    <h1 class="sidebar-name">Zhyllan Fyllah</h1>
+                    <div class="sidebar-role">Student | Web &amp; Mobile Developer</div>
+                    <div class="sidebar-location">Indonesia</div>
+                </div>
+                <div class="sidebar-audio" data-audio-group>
+                    <audio controls preload="none" src="a.mp3" data-title="Lagu A" data-artist="Artis A"></audio>
+                    <audio controls preload="none" src="b.mp3" data-title="Lagu B" data-artist="Artis B"></audio>
+                    <audio controls preload="none" src="c.mp3" data-title="Lagu C" data-artist="Artis C"></audio>
+                </div>
+                <div class="sidebar-bottom" id="links">
+                    <h2 class="sidebar-label">Tautan</h2>
+                    <a class="contact-item" href="#"
+                        ><span class="material-icons-round">code</span>github.com/jirankun</a
+                    >
+                    <a class="contact-item" href="#"
+                        ><span class="material-icons-round">link</span>www.zhyllanfyllah.my.id</a
+                    >
+                    <a class="contact-item" href="#"
+                        ><span class="material-icons-round">link</span>aokazestudio.zhyllanfyllah.my.id</a
+                    >
+                    <a class="contact-item" href="#"
+                        ><span class="material-icons-round">link</span>radio.zhyllanfyllah.my.id</a
+                    >
+                </div>
+            </aside>
+            <main class="main">
+                <div style="height: 160px; background: #2b2930; border: 1px solid #36343b"></div>
+                <section class="section">
+                    <h2 class="section-title">Tentang</h2>
+                    <div class="about-text"><p>Contoh konten utama untuk mengukur sisa lebar kolom di mobile.</p></div>
+                </section>
+                <div class="footer">&copy; 2026 Zhyllan Fyllah &mdash; Jirankun</div>
+            </main>
+        </div>
+        <script src="./My-assets-CDN/cdn/public/js/audio-player/1.0.0.js" defer></script>
+    </body>
+</html>
