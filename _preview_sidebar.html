@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" >
         <link rel="stylesheet" href="./My-assets-CDN/cdn/public/css/materialZ/1.0.0.css" >
         <link rel="stylesheet" href="./My-assets-CDN/cdn/privite/css/portofolio/1.0.0.css" >
-        <link rel="stylesheet" href="./My-assets-CDN/cdn/public/css/audio-player/1.0.0.css" >
+        <link rel="stylesheet" href="./My-assets-CDN/cdn/public/css/player/1.0.0.css?v=media-player-1" >
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" >
         <style>
             /* Latar sidebar (CSS-nya ada di portofolio/1.0.0.css).
@@ -141,15 +141,15 @@
                 }
 
                 /* Kontrol player dirapatkan agar tetap muat di kolom sempit. */
-                .sidebar .ap-controls {
+                .sidebar .mp-controls {
                     gap: 4px;
                     padding: 6px 8px;
                 }
-                .sidebar .ap-btn {
+                .sidebar .mp-btn {
                     width: 20px;
                     height: 20px;
                 }
-                .sidebar .ap-time {
+                .sidebar .mp-time {
                     min-width: 46px;
                     padding: 0 2px;
                     font-size: 9px;
@@ -195,7 +195,7 @@
                     <div class="sidebar-role">Student | Web &amp; Mobile Developer</div>
                     <div class="sidebar-location">Indonesia</div>
                 </div>
-                <div class="sidebar-audio" data-audio-group>
+                <div class="sidebar-player" data-player-group>
                     <audio controls preload="none" src="a.mp3" data-title="Lagu A" data-artist="Artis A"></audio>
                     <audio controls preload="none" src="b.mp3" data-title="Lagu B" data-artist="Artis B"></audio>
                     <audio controls preload="none" src="c.mp3" data-title="Lagu C" data-artist="Artis C"></audio>
@@ -225,6 +225,6 @@
                 <div class="footer">&copy; 2026 Zhyllan Fyllah &mdash; Jirankun</div>
             </main>
         </div>
-        <script src="./My-assets-CDN/cdn/public/js/audio-player/1.0.0.js" defer></script>
+        <script src="./My-assets-CDN/cdn/public/js/player/1.0.0.js?v=media-player-1" defer></script>
     </body>
 </html>
