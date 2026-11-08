@@ -7,6 +7,7 @@
 
     var frame = document.getElementById("pdf-frame");
     var loader = document.getElementById("pdf-loader");
+    var mobileBox = document.getElementById("pdf-mobile");
     var errorBox = document.getElementById("pdf-error");
     var errorText = document.getElementById("pdf-error-text");
     var status = document.getElementById("pdf-status");
@@ -17,9 +18,27 @@
     var retryBtn = document.getElementById("pdf-retry");
     var errorOpen = document.getElementById("pdf-error-open");
     var errorDownload = document.getElementById("pdf-error-download");
+    var mobileOpen = document.getElementById("pdf-mobile-open");
+    var mobileDownload = document.getElementById("pdf-mobile-download");
 
     var loaded = false;
     var slowTimer = null;
+
+    /* Browser mobile (Android/iOS, browser bawaan HP) tidak punya PDF viewer
+       inline untuk <iframe>: hasilnya layar kosong / langsung unduh.
+       Deteksi: UA mobile, layar kecil + sentuhan, atau browser tanpa
+       PDF viewer bawaan (navigator.pdfViewerEnabled === false). */
+    function isMobileDevice() {
+        var ua = navigator.userAgent || "";
+        if (/Android|iPhone|iPad|iPod|Mobile/i.test(ua)) return true;
+        var coarse = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+        var small = window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
+        var noPdfViewer = typeof navigator.pdfViewerEnabled === "boolean" && !navigator.pdfViewerEnabled;
+        if (coarse && small) return true;
+        if (noPdfViewer && coarse) return true;
+        if (navigator.maxTouchPoints > 1 && coarse && small) return true;
+        return false;
+    }
 
     function safeReturnPath(value) {
         if (value && value.indexOf("/dokumen/view/") === 0) return value;
@@ -34,9 +53,9 @@
     }
 
     function showError(text) {
-        loader.hidden = true;
-        loader.style.display = "none";
+        hideLoader();
         frame.hidden = true;
+        mobileBox.hidden = true;
         errorBox.hidden = false;
         errorText.textContent = text;
         status.textContent = "Tidak dapat membuka dokumen";
@@ -56,9 +75,24 @@
         loader.style.display = "none";
     }
 
+    /* Mobile: jangan muat iframe sama sekali -> tampilkan panel
+       "Buka dengan aplikasi" yang menunjuk langsung ke file PDF.
+       Browser/OS akan mendelegasikan ke aplikasi PDF / Chrome / Drive. */
+    function showMobilePanel() {
+        hideError();
+        hideLoader();
+        frame.hidden = true;
+        frame.removeAttribute("src");
+        mobileBox.hidden = false;
+        mobileOpen.href = fileUrl.href;
+        mobileDownload.disabled = false;
+        status.textContent = "Buka dengan aplikasi PDF";
+    }
+
     function startLoading() {
         loaded = false;
         hideError();
+        mobileBox.hidden = true;
         showLoader();
         frame.hidden = true;
         status.textContent = "Memuat dokumen…";
@@ -79,16 +113,13 @@
         window.clearTimeout(slowTimer);
         hideLoader();
         frame.hidden = false;
-        status.textContent = "cdn.zhyllanfyllah.my.id";
-    });
-
-    frame.addEventListener("error", function () {
-        // Error frame tidak selalu terpicu untuk PDF; biarkan timeout + tombol fallback.
+        status.textContent = "Dokumen siap dilihat";
     });
 
     async function downloadPdf() {
         if (!fileUrl) return;
         downloadBtn.disabled = true;
+        mobileDownload.disabled = true;
         if (downloadLabel) downloadLabel.textContent = "Mengunduh…";
         status.textContent = "Mengunduh dokumen…";
         try {
@@ -105,23 +136,28 @@
             window.setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 5000);
             status.textContent = "Unduhan dimulai";
         } catch (error) {
-            // fetch lintas-origin bisa gagal walau berkas ada -> fallback buka langsung
-            status.textContent = "Unduhan via halaman gagal, membuka berkas langsung…";
-            window.open(fileUrl.href, "_blank", "noopener");
-            status.textContent = "Dibuka di tab baru — simpan dari sana bila perlu";
+            // Setelah await, window.open() sering diblokir popup mobile.
+            // Arahkan pengguna ke tombol Buka yang masih berupa link asli (tap = gesture).
+            status.textContent = "Unduhan gagal — ketuk “Buka dengan aplikasi”";
+            if (!mobileBox.hidden) mobileOpen.focus();
         } finally {
             downloadBtn.disabled = false;
+            mobileDownload.disabled = false;
             if (downloadLabel) downloadLabel.textContent = "Unduh";
         }
     }
 
     downloadBtn.addEventListener("click", downloadPdf);
+    mobileDownload.addEventListener("click", downloadPdf);
     errorDownload.addEventListener("click", downloadPdf);
     retryBtn.addEventListener("click", function () {
-        if (fileUrl) startLoading();
+        if (!fileUrl) return;
+        if (isMobileDevice()) showMobilePanel();
+        else startLoading();
     });
 
     document.getElementById("close-viewer").href = safeReturnPath(params.get("return"));
+    document.getElementById("pdf-mobile-back").href = safeReturnPath(params.get("return"));
     titleEl.textContent = params.get("name") || "Pratinjau dokumen";
 
     try {
@@ -139,5 +175,9 @@
     errorOpen.href = fileUrl.href;
     downloadBtn.disabled = false;
 
-    startLoading();
+    if (isMobileDevice()) {
+        showMobilePanel();
+    } else {
+        startLoading();
+    }
 })();

@@ -11,6 +11,20 @@
             .replace(/"/g, "&quot;");
     }
 
+    /* Di mobile, <iframe> PDF tidak bisa render inline -> klik harus
+       langsung membuka file (browser/OS mendelegasikan ke aplikasi PDF). */
+    function isMobileDevice() {
+        var ua = navigator.userAgent || "";
+        if (/Android|iPhone|iPad|iPod|Mobile/i.test(ua)) return true;
+        var coarse = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+        var small = window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
+        var noPdfViewer = typeof navigator.pdfViewerEnabled === "boolean" && !navigator.pdfViewerEnabled;
+        if (coarse && small) return true;
+        if (noPdfViewer && coarse) return true;
+        if (navigator.maxTouchPoints > 1 && coarse && small) return true;
+        return false;
+    }
+
     function getCategoryId() {
         var parts = window.location.pathname.replace(/\/+$/, "").split("/");
         return decodeURIComponent(parts[parts.length - 1] || "");
@@ -42,7 +56,13 @@
         var href = item.file;
         var target = ' target="_blank" rel="noopener"';
 
-        if (isPdf) {
+        var mobileHint = "";
+        if (isPdf && isMobileDevice()) {
+            // Langsung ke file: 1 ketuk -> aplikasi PDF eksternal.
+            href = item.file;
+            target = ' target="_blank" rel="noopener"';
+            mobileHint = ' <span class="v-dot" aria-hidden="true"></span> dibuka di aplikasi';
+        } else if (isPdf) {
             var viewerUrl = new URL("/dokumen/pdf/", window.location.origin);
             viewerUrl.searchParams.set("file", item.file);
             viewerUrl.searchParams.set("name", item.name || "Dokumen PDF");
@@ -66,7 +86,7 @@
             "</span>" +
             '<span class="v-meta"><span class="v-type">' +
             esc(type.toUpperCase()) +
-            "</span></span>" +
+            "</span>" + mobileHint + "</span>" +
             "</span>" +
             '<svg class="v-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" ' +
             'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +

@@ -61,6 +61,23 @@
 					<p class="pdf-loader-hint">Jika lama, gunakan tombol Unduh atau Buka di atas.</p>
 				</div>
 
+				<div class="pdf-mobile" id="pdf-mobile" hidden>
+					<span class="material-icons-round pdf-mobile-icon" aria-hidden="true">picture_as_pdf</span>
+					<strong>Buka dengan aplikasi PDF</strong>
+					<p id="pdf-mobile-text">Di perangkat mobile, pratinjau di halaman ini tidak tersedia. Ketuk tombol di bawah untuk membuka dokumen dengan aplikasi PDF, Chrome, atau Drive di perangkatmu.</p>
+					<div class="pdf-mobile-actions">
+						<a class="pdf-action pdf-action-primary pdf-action-lg" id="pdf-mobile-open" href="#" target="_blank" rel="noopener">
+							<span class="material-icons-round" aria-hidden="true">open_in_new</span>
+							<span>Buka dengan aplikasi</span>
+						</a>
+						<button class="pdf-action pdf-action-lg" id="pdf-mobile-download" type="button" disabled>
+							<span class="material-icons-round" aria-hidden="true">download</span>
+							<span>Unduh PDF</span>
+						</button>
+					</div>
+					<a class="pdf-mobile-back" id="pdf-mobile-back" href="/dokumen/">Kembali ke daftar dokumen</a>
+				</div>
+
 				<div class="pdf-error" id="pdf-error" hidden>
 					<span class="material-icons-round pdf-error-icon" aria-hidden="true">error_outline</span>
 					<strong>Dokumen tidak dapat dibuka</strong>

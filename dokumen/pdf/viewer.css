@@ -117,6 +117,25 @@ button, input { font: inherit; }
 }
 @keyframes pdf-spin { to { transform: rotate(360deg); } }
 
+.pdf-mobile {
+    margin: auto;
+    max-width: 440px;
+    width: calc(100% - 32px);
+    padding: 28px 24px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+    text-align: center;
+}
+.pdf-mobile[hidden] { display: none; }
+.pdf-mobile-icon { font-size: 44px; color: var(--accent); }
+.pdf-mobile strong { display: block; margin-top: 10px; font-size: 16px; }
+.pdf-mobile p { margin: 8px 0 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+.pdf-mobile-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; }
+.pdf-mobile-actions .pdf-action { justify-content: center; width: 100%; }
+.pdf-action-lg { min-height: 48px; font-size: 14px; }
+.pdf-mobile-back { display: inline-block; margin-top: 14px; color: var(--muted); font-size: 12px; }
+
 .pdf-error {
     margin: auto;
     max-width: 440px;
@@ -135,7 +154,8 @@ button, input { font: inherit; }
 
 @media (max-width: 640px) {
     .pdf-toolbar { padding: 8px 10px; gap: 8px; }
-    .pdf-action span:last-child { display: none; }
-    .pdf-action { padding: 0 10px; }
+    .pdf-toolbar .pdf-action span:last-child { display: none; }
+    .pdf-toolbar .pdf-action { padding: 0 10px; }
+    .pdf-mobile-actions .pdf-action span:last-child { display: inline; }
     .pdf-frame { min-height: calc(100dvh - 57px); }
 }
