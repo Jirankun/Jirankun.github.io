@@ -1,0 +1,32 @@
+.doc-page {
+    max-width: 880px;
+    padding: 32px 28px 48px;
+}
+
+.doc-topbar { margin-bottom: 28px; }
+.doc-header { margin-bottom: 32px; }
+.doc-title { margin-bottom: 8px; font-size: 32px; }
+.doc-subtitle { font-size: 14px; line-height: 1.55; }
+.doc-section { margin-bottom: 28px; }
+.doc-section-title { padding-bottom: 10px; margin-bottom: 8px; }
+.cat-item { gap: 14px; padding: 14px 4px; }
+.cat-item > .material-icons-round { flex: 0 0 22px; font-size: 21px; }
+.cat-name { font-size: 15px; }
+.cat-desc { font-size: 12px; line-height: 1.45; }
+.doc-footer { margin-top: 36px; padding-top: 16px; }
+.v-list { border-top: 1px solid var(--m3-outline-variant); }
+.v-item { gap: 12px; padding: 12px 2px; }
+.v-thumb { width: 54px; height: 72px; border-radius: 5px; }
+.v-name { font-size: 15px; }
+.v-meta { margin-top: 4px; }
+
+.v-item[aria-busy="true"] { opacity: .6; pointer-events: none; }
+
+@media (max-width: 640px) {
+    .doc-page { padding: 22px 18px 36px; }
+    .doc-topbar { margin-bottom: 22px; }
+    .doc-header { margin-bottom: 26px; }
+    .doc-title { font-size: 28px; }
+    .cat-item { gap: 10px; padding: 12px 2px; }
+    .doc-footer { margin-top: 28px; }
+}

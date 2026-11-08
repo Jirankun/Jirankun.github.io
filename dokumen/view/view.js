@@ -7,7 +7,7 @@
         return String(s == null ? "" : s)
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
-            .replace(>/g, "&gt;")
+            .replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;");
     }
 
@@ -22,17 +22,41 @@
         return await res.json();
     }
 
+    function getFileType(item) {
+        if (item.type) return String(item.type).toLowerCase();
+        try {
+            return new URL(item.file, window.location.href).pathname.split(".").pop().toLowerCase();
+        } catch (e) {
+            return "file";
+        }
+    }
+
     function renderItem(item) {
         var thumb = item.image
             ? '<img src="' + esc(item.image) + '" alt="" loading="lazy" decoding="async">'
             : '<span class="material-icons-round">insert_drive_file</span>';
 
-        var type = (item.type || "file").toUpperCase();
+        var type = getFileType(item);
+        var isPdf = type === "pdf";
+        var isDocx = type === "docx";
+        var href = item.file;
+        var target = ' target="_blank" rel="noopener"';
+
+        if (isPdf) {
+            var viewerUrl = new URL("/dokumen/pdf/", window.location.origin);
+            viewerUrl.searchParams.set("file", item.file);
+            viewerUrl.searchParams.set("name", item.name || "Dokumen PDF");
+            viewerUrl.searchParams.set("return", window.location.pathname);
+            href = viewerUrl.pathname + viewerUrl.search;
+            target = "";
+        }
+
+        var downloadAttrs = isDocx
+            ? ' data-download="docx" data-file="' + esc(item.file) + '" data-filename="' + esc(item.name || "dokumen") + '"'
+            : "";
 
         return (
-            '<a class="v-item" href="' +
-            esc(item.file) +
-            '" target="_blank" rel="noopener">' +
+            '<a class="v-item" href="' + esc(href) + '"' + target + downloadAttrs + '>' +
             '<span class="v-thumb">' +
             thumb +
             "</span>" +
@@ -41,7 +65,7 @@
             esc(item.name) +
             "</span>" +
             '<span class="v-meta"><span class="v-type">' +
-            esc(type) +
+            esc(type.toUpperCase()) +
             "</span></span>" +
             "</span>" +
             '<svg class="v-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" ' +
@@ -88,6 +112,33 @@
         listEl.innerHTML = items.map(renderItem).join("");
         attachImageFallback(listEl);
     }
+
+    document.addEventListener("click", async function (event) {
+        var link = event.target.closest('a[data-download="docx"]');
+        if (!link) return;
+
+        event.preventDefault();
+        link.setAttribute("aria-busy", "true");
+        try {
+            var response = await fetch(link.getAttribute("data-file"));
+            if (!response.ok) throw new Error("status " + response.status);
+            var blob = await response.blob();
+            var objectUrl = URL.createObjectURL(blob);
+            var downloadLink = document.createElement("a");
+            downloadLink.href = objectUrl;
+            var filename = link.getAttribute("data-filename") || "dokumen";
+            downloadLink.download = /\.docx$/i.test(filename) ? filename : filename + ".docx";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            downloadLink.remove();
+            window.setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 1000);
+        } catch (error) {
+            link.removeAttribute("data-download");
+            link.click();
+        } finally {
+            link.removeAttribute("aria-busy");
+        }
+    });
 
     main();
 })();

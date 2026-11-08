@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport"
+		      content="width=device-width, initial-scale=1"
+		>
+		<meta name="theme-color"
+		      content="#141a17"
+		>
+		<meta name="robots"
+		      content="noindex, nofollow"
+		>
+		<title>Pratinjau PDF — Dokumen Zhyllan</title>
+		<link rel="preconnect"
+		      href="https://cdn.zhyllanfyllah.my.id"
+		      crossorigin
+		>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+		      rel="stylesheet"
+		>
+		<link rel="stylesheet"
+		      href="./viewer.css"
+		>
+		<script type="module" src="./viewer.js"></script>
+	</head>
+	<body>
+		<main class="pdf-app">
+			<header class="pdf-toolbar">
+				<a class="pdf-icon-button" id="close-viewer" href="/dokumen/" aria-label="Keluar dari pratinjau" title="Keluar">
+					<span class="material-icons-round" aria-hidden="true">close</span>
+				</a>
+				<div class="pdf-heading">
+					<strong id="pdf-title">Pratinjau dokumen</strong>
+					<span id="pdf-status" role="status" aria-live="polite">Menyiapkan PDF…</span>
+				</div>
+				<div class="pdf-controls" aria-label="Kontrol PDF">
+					<button class="pdf-icon-button" id="zoom-out" type="button" aria-label="Perkecil" title="Perkecil" disabled>
+						<span class="material-icons-round" aria-hidden="true">remove</span>
+					</button>
+					<span class="pdf-zoom" id="zoom-label">100%</span>
+					<button class="pdf-icon-button" id="zoom-in" type="button" aria-label="Perbesar" title="Perbesar" disabled>
+						<span class="material-icons-round" aria-hidden="true">add</span>
+					</button>
+					<span class="pdf-divider" aria-hidden="true"></span>
+					<button class="pdf-icon-button" id="page-previous" type="button" aria-label="Halaman sebelumnya" title="Halaman sebelumnya" disabled>
+						<span class="material-icons-round" aria-hidden="true">chevron_left</span>
+					</button>
+					<label class="pdf-page-control">
+						<input id="page-number"
+						       type="number"
+						       min="1"
+						       value="1"
+						       aria-label="Nomor halaman"
+						       disabled
+						>
+						<span>/ <span id="page-count">–</span></span>
+					</label>
+					<button class="pdf-icon-button" id="page-next" type="button" aria-label="Halaman berikutnya" title="Halaman berikutnya" disabled>
+						<span class="material-icons-round" aria-hidden="true">chevron_right</span>
+					</button>
+				</div>
+			</header>
+
+			<section class="pdf-stage" id="pdf-stage" aria-label="Pratinjau halaman PDF">
+				<div class="pdf-message" id="pdf-message">Memuat dokumen…</div>
+				<canvas id="pdf-canvas" aria-label="Halaman PDF"></canvas>
+			</section>
+
+			<button class="pdf-download-fab" id="pdf-download" type="button" aria-label="Unduh PDF" title="Unduh PDF" disabled>
+				<span class="material-icons-round" aria-hidden="true">download</span>
+			</button>
+		</main>
+		<script>
+			window.setTimeout(function () {
+				var status = document.getElementById("pdf-status");
+				var message = document.getElementById("pdf-message");
+				if (!status || !/^((Menyiapkan|Memuat)\b)/.test(status.textContent)) return;
+				status.textContent = "Pemuatan melewati batas waktu";
+				message.textContent = "PDF.js atau berkas PDF tidak merespons. Coba muat ulang halaman.";
+				message.dataset.error = "true";
+				message.hidden = false;
+			}, 20000);
+		</script>
+	</body>
+</html>
