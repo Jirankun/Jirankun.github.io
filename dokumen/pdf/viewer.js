@@ -79,7 +79,7 @@
         window.clearTimeout(slowTimer);
         hideLoader();
         frame.hidden = false;
-        status.textContent = "Dokumen siap dilihat";
+        status.textContent = "cdn.zhyllanfyllah.my.id";
     });
 
     frame.addEventListener("error", function () {
