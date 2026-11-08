@@ -6,12 +6,20 @@
 		      content="width=device-width, initial-scale=1"
 		>
 		<meta name="theme-color"
-		      content="#141a17"
+		      content="#141218"
 		>
 		<meta name="robots"
 		      content="noindex, nofollow"
 		>
-		<title>Pratinjau PDF — Dokumen Zhyllan</title>
+		<title>Pratinjau Dokumen — Zhyllan Fyllah</title>
+		<link rel="icon"
+		      type="image/png"
+		      href="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/portofolio/favicon.png"
+		>
+		<link rel="preconnect"
+		      href="https://fonts.gstatic.com"
+		      crossorigin
+		>
 		<link rel="preconnect"
 		      href="https://cdn.zhyllanfyllah.my.id"
 		      crossorigin
@@ -22,65 +30,50 @@
 		<link rel="stylesheet"
 		      href="./viewer.css"
 		>
-		<script type="module" src="./viewer.js"></script>
+		<script src="./viewer.js" defer></script>
 	</head>
 	<body>
 		<main class="pdf-app">
 			<header class="pdf-toolbar">
-				<a class="pdf-icon-button" id="close-viewer" href="/dokumen/" aria-label="Keluar dari pratinjau" title="Keluar">
-					<span class="material-icons-round" aria-hidden="true">close</span>
+				<a class="pdf-icon-button" id="close-viewer" href="/dokumen/" aria-label="Kembali ke daftar dokumen" title="Kembali">
+					<span class="material-icons-round" aria-hidden="true">arrow_back</span>
 				</a>
 				<div class="pdf-heading">
 					<strong id="pdf-title">Pratinjau dokumen</strong>
-					<span id="pdf-status" role="status" aria-live="polite">Menyiapkan PDF…</span>
+					<span id="pdf-status" role="status" aria-live="polite">Memuat dokumen…</span>
 				</div>
-				<div class="pdf-controls" aria-label="Kontrol PDF">
-					<button class="pdf-icon-button" id="zoom-out" type="button" aria-label="Perkecil" title="Perkecil" disabled>
-						<span class="material-icons-round" aria-hidden="true">remove</span>
-					</button>
-					<span class="pdf-zoom" id="zoom-label">100%</span>
-					<button class="pdf-icon-button" id="zoom-in" type="button" aria-label="Perbesar" title="Perbesar" disabled>
-						<span class="material-icons-round" aria-hidden="true">add</span>
-					</button>
-					<span class="pdf-divider" aria-hidden="true"></span>
-					<button class="pdf-icon-button" id="page-previous" type="button" aria-label="Halaman sebelumnya" title="Halaman sebelumnya" disabled>
-						<span class="material-icons-round" aria-hidden="true">chevron_left</span>
-					</button>
-					<label class="pdf-page-control">
-						<input id="page-number"
-						       type="number"
-						       min="1"
-						       value="1"
-						       aria-label="Nomor halaman"
-						       disabled
-						>
-						<span>/ <span id="page-count">–</span></span>
-					</label>
-					<button class="pdf-icon-button" id="page-next" type="button" aria-label="Halaman berikutnya" title="Halaman berikutnya" disabled>
-						<span class="material-icons-round" aria-hidden="true">chevron_right</span>
+				<div class="pdf-actions">
+					<a class="pdf-action" id="pdf-open" href="#" target="_blank" rel="noopener" aria-disabled="true">
+						<span class="material-icons-round" aria-hidden="true">open_in_new</span>
+						<span>Buka</span>
+					</a>
+					<button class="pdf-action pdf-action-primary" id="pdf-download" type="button" disabled>
+						<span class="material-icons-round" aria-hidden="true">download</span>
+						<span id="pdf-download-label">Unduh</span>
 					</button>
 				</div>
 			</header>
 
-			<section class="pdf-stage" id="pdf-stage" aria-label="Pratinjau halaman PDF">
-				<div class="pdf-message" id="pdf-message">Memuat dokumen…</div>
-				<canvas id="pdf-canvas" aria-label="Halaman PDF"></canvas>
-			</section>
+			<section class="pdf-stage" id="pdf-stage" aria-label="Pratinjau dokumen">
+				<div class="pdf-loader" id="pdf-loader">
+					<span class="pdf-spinner" aria-hidden="true"></span>
+					<p>Memuat dokumen…</p>
+					<p class="pdf-loader-hint">Jika lama, gunakan tombol Unduh atau Buka di atas.</p>
+				</div>
 
-			<button class="pdf-download-fab" id="pdf-download" type="button" aria-label="Unduh PDF" title="Unduh PDF" disabled>
-				<span class="material-icons-round" aria-hidden="true">download</span>
-			</button>
+				<div class="pdf-error" id="pdf-error" hidden>
+					<span class="material-icons-round pdf-error-icon" aria-hidden="true">error_outline</span>
+					<strong>Dokumen tidak dapat dibuka</strong>
+					<p id="pdf-error-text">Berkas tidak ditemukan atau sumbernya tidak diizinkan.</p>
+					<div class="pdf-error-actions">
+						<button class="pdf-action" id="pdf-retry" type="button">Coba lagi</button>
+						<a class="pdf-action" id="pdf-error-open" href="#" target="_blank" rel="noopener">Buka di tab baru</a>
+						<button class="pdf-action pdf-action-primary" id="pdf-error-download" type="button">Unduh</button>
+					</div>
+				</div>
+
+				<iframe class="pdf-frame" id="pdf-frame" title="Pratinjau PDF" hidden></iframe>
+			</section>
 		</main>
-		<script>
-			window.setTimeout(function () {
-				var status = document.getElementById("pdf-status");
-				var message = document.getElementById("pdf-message");
-				if (!status || !/^((Menyiapkan|Memuat)\b)/.test(status.textContent)) return;
-				status.textContent = "Pemuatan melewati batas waktu";
-				message.textContent = "PDF.js atau berkas PDF tidak merespons. Coba muat ulang halaman.";
-				message.dataset.error = "true";
-				message.hidden = false;
-			}, 20000);
-		</script>
 	</body>
 </html>

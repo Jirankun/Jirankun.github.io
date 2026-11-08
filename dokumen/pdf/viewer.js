@@ -1,151 +1,143 @@
-var params = new URLSearchParams(window.location.search);
-var rawFile = params.get("file") || "";
-var fileUrl;
-var pdfDocument;
-var pageNumber = 1;
-var zoom = 1;
-var renderTask;
-var stage = document.getElementById("pdf-stage");
-var canvas = document.getElementById("pdf-canvas");
-var context = canvas.getContext("2d");
-var message = document.getElementById("pdf-message");
-var status = document.getElementById("pdf-status");
-var pageInput = document.getElementById("page-number");
-var pageCount = document.getElementById("page-count");
-var previousButton = document.getElementById("page-previous");
-var nextButton = document.getElementById("page-next");
-var zoomOutButton = document.getElementById("zoom-out");
-var zoomInButton = document.getElementById("zoom-in");
-var downloadButton = document.getElementById("pdf-download");
+(function () {
+    "use strict";
 
-function setMessage(text, isError) {
-    message.textContent = text;
-    message.dataset.error = isError ? "true" : "false";
-    message.hidden = false;
-    canvas.style.display = "none";
-    status.textContent = isError ? "Tidak dapat membuka PDF" : text;
-}
+    var params = new URLSearchParams(window.location.search);
+    var rawFile = params.get("file") || "";
+    var fileUrl = null;
 
-function safeReturnPath(value) {
-    if (value && value.startsWith("/dokumen/view/")) return value;
-    return "/dokumen/";
-}
+    var frame = document.getElementById("pdf-frame");
+    var loader = document.getElementById("pdf-loader");
+    var errorBox = document.getElementById("pdf-error");
+    var errorText = document.getElementById("pdf-error-text");
+    var status = document.getElementById("pdf-status");
+    var titleEl = document.getElementById("pdf-title");
+    var downloadBtn = document.getElementById("pdf-download");
+    var downloadLabel = document.getElementById("pdf-download-label");
+    var openLink = document.getElementById("pdf-open");
+    var retryBtn = document.getElementById("pdf-retry");
+    var errorOpen = document.getElementById("pdf-error-open");
+    var errorDownload = document.getElementById("pdf-error-download");
 
-function safeFilename(value) {
-    return (value || "dokumen").replace(/[\\/:*?"<>|]+/g, "-").trim() + ".pdf";
-}
+    var loaded = false;
+    var slowTimer = null;
 
-function withTimeout(promise, message, timeoutMs) {
-    var timer;
-    return Promise.race([
-        promise,
-        new Promise(function (_, reject) {
-            timer = window.setTimeout(function () { reject(new Error(message)); }, timeoutMs);
-        }),
-    ]).finally(function () { window.clearTimeout(timer); });
-}
+    function safeReturnPath(value) {
+        if (value && value.indexOf("/dokumen/view/") === 0) return value;
+        return "/dokumen/";
+    }
 
-async function renderPage() {
-    if (!pdfDocument) return;
-    if (renderTask) renderTask.cancel();
+    function safeFilename(value) {
+        var name = String(value || "dokumen").replace(/[\\/:*?"<>|]+/g, "-").trim();
+        if (!name) name = "dokumen";
+        if (!/\.pdf$/i.test(name)) name += ".pdf";
+        return name;
+    }
 
-    var page = await pdfDocument.getPage(pageNumber);
-    var baseViewport = page.getViewport({ scale: 1 });
-    var availableWidth = Math.max(280, stage.clientWidth - 40);
-    var fitScale = Math.min(1, availableWidth / baseViewport.width);
-    var viewport = page.getViewport({ scale: fitScale * zoom });
-    var pixelRatio = window.devicePixelRatio || 1;
+    function showError(text) {
+        loader.hidden = true;
+        loader.style.display = "none";
+        frame.hidden = true;
+        errorBox.hidden = false;
+        errorText.textContent = text;
+        status.textContent = "Tidak dapat membuka dokumen";
+    }
 
-    canvas.width = Math.ceil(viewport.width * pixelRatio);
-    canvas.height = Math.ceil(viewport.height * pixelRatio);
-    canvas.style.width = Math.ceil(viewport.width) + "px";
-    canvas.style.height = Math.ceil(viewport.height) + "px";
-    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    function hideError() {
+        errorBox.hidden = true;
+    }
 
-    renderTask = page.render({ canvasContext: context, viewport: viewport });
+    function showLoader() {
+        loader.hidden = false;
+        loader.style.display = "flex";
+    }
+
+    function hideLoader() {
+        loader.hidden = true;
+        loader.style.display = "none";
+    }
+
+    function startLoading() {
+        loaded = false;
+        hideError();
+        showLoader();
+        frame.hidden = true;
+        status.textContent = "Memuat dokumen…";
+
+        // Native browser PDF viewer = instan, tanpa library tambahan.
+        // #toolbar / zoom hanya hint untuk viewer bawaan browser.
+        frame.src = fileUrl.href + "#toolbar=1&navpanes=0&scrollbar=1&zoom=FitH";
+
+        window.clearTimeout(slowTimer);
+        slowTimer = window.setTimeout(function () {
+            if (!loaded) status.textContent = "Masih memuat… gunakan Unduh / Buka bila lama";
+        }, 12000);
+    }
+
+    frame.addEventListener("load", function () {
+        if (!fileUrl) return;
+        loaded = true;
+        window.clearTimeout(slowTimer);
+        hideLoader();
+        frame.hidden = false;
+        status.textContent = "Dokumen siap dilihat";
+    });
+
+    frame.addEventListener("error", function () {
+        // Error frame tidak selalu terpicu untuk PDF; biarkan timeout + tombol fallback.
+    });
+
+    async function downloadPdf() {
+        if (!fileUrl) return;
+        downloadBtn.disabled = true;
+        if (downloadLabel) downloadLabel.textContent = "Mengunduh…";
+        status.textContent = "Mengunduh dokumen…";
+        try {
+            var response = await fetch(fileUrl.href);
+            if (!response.ok) throw new Error("HTTP " + response.status);
+            var blob = await response.blob();
+            var objectUrl = URL.createObjectURL(blob);
+            var link = document.createElement("a");
+            link.href = objectUrl;
+            link.download = safeFilename(params.get("name"));
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 5000);
+            status.textContent = "Unduhan dimulai";
+        } catch (error) {
+            // fetch lintas-origin bisa gagal walau berkas ada -> fallback buka langsung
+            status.textContent = "Unduhan via halaman gagal, membuka berkas langsung…";
+            window.open(fileUrl.href, "_blank", "noopener");
+            status.textContent = "Dibuka di tab baru — simpan dari sana bila perlu";
+        } finally {
+            downloadBtn.disabled = false;
+            if (downloadLabel) downloadLabel.textContent = "Unduh";
+        }
+    }
+
+    downloadBtn.addEventListener("click", downloadPdf);
+    errorDownload.addEventListener("click", downloadPdf);
+    retryBtn.addEventListener("click", function () {
+        if (fileUrl) startLoading();
+    });
+
+    document.getElementById("close-viewer").href = safeReturnPath(params.get("return"));
+    titleEl.textContent = params.get("name") || "Pratinjau dokumen";
+
     try {
-        await renderTask.promise;
-        message.hidden = true;
-        canvas.style.display = "block";
-        pageInput.value = String(pageNumber);
-        pageInput.max = String(pdfDocument.numPages);
-        pageCount.textContent = String(pdfDocument.numPages);
-        status.textContent = "Halaman " + pageNumber + " dari " + pdfDocument.numPages;
-        document.getElementById("zoom-label").textContent = Math.round(zoom * 100) + "%";
-        previousButton.disabled = pageNumber <= 1;
-        nextButton.disabled = pageNumber >= pdfDocument.numPages;
-        pageInput.disabled = false;
-        zoomOutButton.disabled = zoom <= 0.6;
-        zoomInButton.disabled = zoom >= 2.4;
+        fileUrl = new URL(rawFile);
+        if (fileUrl.hostname !== "cdn.zhyllanfyllah.my.id" || fileUrl.pathname.indexOf("/cdn/") !== 0) {
+            throw new Error("Sumber dokumen tidak diizinkan.");
+        }
     } catch (error) {
-        if (error.name !== "RenderingCancelledException") throw error;
+        showError("Tautan dokumen tidak valid atau tidak diizinkan. Kembali ke daftar dokumen lalu coba lagi.");
+        return;
     }
-}
 
-async function downloadPdf() {
-    downloadButton.disabled = true;
-    status.textContent = "Mengunduh PDF…";
-    try {
-        var response = await fetch(fileUrl.href);
-        if (!response.ok) throw new Error("HTTP " + response.status);
-        var blob = await response.blob();
-        var objectUrl = URL.createObjectURL(blob);
-        var link = document.createElement("a");
-        link.href = objectUrl;
-        link.download = safeFilename(params.get("name"));
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        window.setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 1000);
-        status.textContent = "Unduhan dimulai";
-    } catch (error) {
-        status.textContent = "Unduhan gagal. Periksa koneksi lalu coba lagi.";
-        downloadButton.disabled = false;
-    }
-}
+    openLink.href = fileUrl.href;
+    openLink.removeAttribute("aria-disabled");
+    errorOpen.href = fileUrl.href;
+    downloadBtn.disabled = false;
 
-document.getElementById("close-viewer").href = safeReturnPath(params.get("return"));
-document.getElementById("pdf-title").textContent = params.get("name") || "Pratinjau dokumen";
-previousButton.addEventListener("click", function () {
-    if (pageNumber > 1) { pageNumber -= 1; renderPage().catch(function (error) { setMessage(error.message, true); }); }
-});
-nextButton.addEventListener("click", function () {
-    if (pdfDocument && pageNumber < pdfDocument.numPages) { pageNumber += 1; renderPage().catch(function (error) { setMessage(error.message, true); }); }
-});
-pageInput.addEventListener("change", function () {
-    if (!pdfDocument) return;
-    pageNumber = Math.min(pdfDocument.numPages, Math.max(1, Number(pageInput.value) || 1));
-    renderPage().catch(function (error) { setMessage(error.message, true); });
-});
-zoomOutButton.addEventListener("click", function () {
-    zoom = Math.max(0.6, Math.round((zoom - 0.2) * 10) / 10);
-    renderPage().catch(function (error) { setMessage(error.message, true); });
-});
-zoomInButton.addEventListener("click", function () {
-    zoom = Math.min(2.4, Math.round((zoom + 0.2) * 10) / 10);
-    renderPage().catch(function (error) { setMessage(error.message, true); });
-});
-downloadButton.addEventListener("click", downloadPdf);
-window.addEventListener("resize", function () {
-    if (pdfDocument) renderPage().catch(function (error) { setMessage(error.message, true); });
-});
-
-try {
-    fileUrl = new URL(rawFile);
-    if (fileUrl.hostname !== "cdn.zhyllanfyllah.my.id" || !fileUrl.pathname.startsWith("/cdn/")) {
-        throw new Error("Sumber dokumen tidak diizinkan.");
-    }
-    status.textContent = "Memuat PDF.js…";
-    var pdfjs = await withTimeout(
-        import("https://cdn.zhyllanfyllah.my.id/cdn/public/js/pdfjs/pdf.mjs"),
-        "PDF.js tidak dapat dimuat dari CDN.",
-        15000,
-    );
-    pdfjs.GlobalWorkerOptions.workerSrc = "https://cdn.zhyllanfyllah.my.id/cdn/public/js/pdfjs/pdf.worker.mjs";
-    var loadingTask = pdfjs.getDocument({ url: fileUrl.href });
-    pdfDocument = await withTimeout(loadingTask.promise, "PDF tidak merespons.", 30000);
-    downloadButton.disabled = false;
-    await renderPage();
-} catch (error) {
-    setMessage("PDF tidak dapat dimuat. Pastikan path pada data.json benar dan berkas tersedia.", true);
-}
+    startLoading();
+})();
