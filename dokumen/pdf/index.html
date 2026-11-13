@@ -28,11 +28,13 @@
 		      rel="stylesheet"
 		>
 		<link rel="stylesheet"
-		      href="./viewer.css"
+		      href="https://cdn.zhyllanfyllah.my.id/cdn/public/css/materialZ/1.0.0.css"
 		>
-		<script src="./viewer.js" defer></script>
+		<link rel="stylesheet"
+		      href="https://cdn.zhyllanfyllah.my.id/cdn/privite/css/document/1.0.1.css"
+		>
 	</head>
-	<body>
+	<body class="pdf-body">
 		<main class="pdf-app">
 			<header class="pdf-toolbar">
 				<a class="pdf-icon-button" id="close-viewer" href="/dokumen/" aria-label="Kembali ke daftar dokumen" title="Kembali">
@@ -43,40 +45,25 @@
 					<span id="pdf-status" role="status" aria-live="polite">Memuat dokumen…</span>
 				</div>
 				<div class="pdf-actions">
-					<a class="pdf-action" id="pdf-open" href="#" target="_blank" rel="noopener" aria-disabled="true">
+					<a class="pdf-action" id="pdf-open" href="#" target="_blank" rel="noopener" aria-disabled="true" aria-label="Buka dokumen di tab baru" title="Buka">
 						<span class="material-icons-round" aria-hidden="true">open_in_new</span>
 						<span>Buka</span>
 					</a>
-					<button class="pdf-action pdf-action-primary" id="pdf-download" type="button" disabled>
+					<button class="pdf-action pdf-action-primary" id="pdf-download" type="button" disabled aria-label="Unduh dokumen" title="Unduh">
 						<span class="material-icons-round" aria-hidden="true">download</span>
-						<span id="pdf-download-label">Unduh</span>
+						<span>Unduh</span>
 					</button>
 				</div>
 			</header>
 
-			<section class="pdf-stage" id="pdf-stage" aria-label="Pratinjau dokumen">
+			<section class="pdf-stage" aria-label="Pratinjau dokumen">
 				<div class="pdf-loader" id="pdf-loader">
 					<span class="pdf-spinner" aria-hidden="true"></span>
 					<p>Memuat dokumen…</p>
-					<p class="pdf-loader-hint">Jika lama, gunakan tombol Unduh atau Buka di atas.</p>
+					<p class="pdf-loader-hint">Halaman dirender langsung di perangkat ini.</p>
 				</div>
 
-				<div class="pdf-mobile" id="pdf-mobile" hidden>
-					<span class="material-icons-round pdf-mobile-icon" aria-hidden="true">picture_as_pdf</span>
-					<strong>Buka dengan aplikasi PDF</strong>
-					<p id="pdf-mobile-text">Di perangkat mobile, pratinjau di halaman ini tidak tersedia. Ketuk tombol di bawah untuk membuka dokumen dengan aplikasi PDF, Chrome, atau Drive di perangkatmu.</p>
-					<div class="pdf-mobile-actions">
-						<a class="pdf-action pdf-action-primary pdf-action-lg" id="pdf-mobile-open" href="#" target="_blank" rel="noopener">
-							<span class="material-icons-round" aria-hidden="true">open_in_new</span>
-							<span>Buka dengan aplikasi</span>
-						</a>
-						<button class="pdf-action pdf-action-lg" id="pdf-mobile-download" type="button" disabled>
-							<span class="material-icons-round" aria-hidden="true">download</span>
-							<span>Unduh PDF</span>
-						</button>
-					</div>
-					<a class="pdf-mobile-back" id="pdf-mobile-back" href="/dokumen/">Kembali ke daftar dokumen</a>
-				</div>
+				<div class="pdf-scroll" id="pdf-scroll" hidden></div>
 
 				<div class="pdf-error" id="pdf-error" hidden>
 					<span class="material-icons-round pdf-error-icon" aria-hidden="true">error_outline</span>
@@ -88,9 +75,9 @@
 						<button class="pdf-action pdf-action-primary" id="pdf-error-download" type="button">Unduh</button>
 					</div>
 				</div>
-
-				<iframe class="pdf-frame" id="pdf-frame" title="Pratinjau PDF" hidden></iframe>
 			</section>
 		</main>
+
+		<script src="https://cdn.zhyllanfyllah.my.id/cdn/privite/js/document/viewer/1.0.0.js" defer></script>
 	</body>
 </html>

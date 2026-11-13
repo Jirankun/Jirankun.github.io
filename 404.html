@@ -2,541 +2,169 @@
 <html lang="ja">
 	<head>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>404 ─ ページが見つかりません</title>
+		<title>404 File Not Found</title>
 		<meta name="copyright" content="Zhyllan Fyllah">
 		<meta name="robots" content="noindex, nofollow">
-		<link rel="icon"
-		      type="image/png"
-		      href="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/portofolio/favicon.png"
-		>
-		<link rel="icon" type="image/x-icon" sizes="100x100" href="https://zhyllanfyllah.my.id/favicon.ico">
-
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
 		<style>
-			:root{
-				--bg:#0a0a0c;
-				--panel:#101014;
-				--fg:#b9b9b9;
-				--dim:#5c5c66;
-				--line:#2a2a30;
-				--red:#a3282f;
+
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			img {
+				border: 0;
+			}
+			ul {
+				padding-left: 2em;
+			}
+			html {
+				overflow-y: scroll;
+				background: #ab3bb7;
+			}
+			body {
+				font-family: "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", sans-serif;
+				margin: 0;
+				line-height: 1.4;
+				font-size: 75%;
+				text-align: center;
+				color: white;
+			}
+			h1 {
+				font-size: 24px;
+				font-weight: bold;
+			}
+			h1 {
+				font-weight: bold;
+				line-height: 1;
+				padding-bottom: 20px;
+				font-family: Helvetica, sans-serif;
+			}
+			h2 {
+				text-align: center;
+				font-weight: bold;
+				font-size: 27px;
+			}
+			p {
+				text-align: center;
+				font-size: 14px;
+				margin: 0;
+				padding: 0;
+				color: white;
+			}
+			.translation {
+				display: block;
+				font-size: 0.75em;
+				font-weight: normal;
+				line-height: 1.5;
+				margin-top: 4px;
+			}
+			.explain {
+				border-top: 1px solid #fff;
+				border-bottom: 1px solid #fff;
+				line-height: 1.5;
+				margin: 30px auto;
+				padding: 17px;
+			}
+			#cause {
+				text-align: left;
+			}
+			#cause li {
+				color: #666;
+			}
+			h3 {
+				letter-spacing: 1px;
+				font-weight: bold;
+				padding: 0;
+			}
+			#white_box {
+				margin: 15px auto 0;
+				background-color: white;
 			}
 			
-			*{margin:0;padding:0;box-sizing:border-box;}
-			html,body{height:100%;overflow:hidden;}
+			/* ====================
 			
-			body{
-				display:flex;
-				align-items:center;
-				justify-content:center;
-				padding:16px;
-				background:var(--bg);
-				color:var(--fg);
-				font-family:"MS Gothic","Osaka-mono","Courier New",monospace;
-				font-size:12px;
-				line-height:1.6;
-				-webkit-font-smoothing:none;
-			}
+			スマートフォン
 			
-			/* ============ BOOT ============ */
-			.boot{
-				position:fixed;
-				inset:0;
-				z-index:9999;
-				background:#050507;
-				display:flex;
-				align-items:center;
-				justify-content:center;
-				font-family:"MS Gothic","Courier New",monospace;
-				color:var(--fg);
-				letter-spacing:0.14em;
-				padding:24px;
-				cursor:pointer;
-				transition:background 0.5s ease;
-			}
-			.boot.transparent{ background:transparent; }
-			
-			.boot-content{
-				width:100%;
-				max-width:320px;
-				display:flex;
-				flex-direction:column;
-				gap:6px;
-				transition:opacity 0.3s ease;
+			======================= */
+			@media only screen and (min-width: 0) and (max-width: 767px) {
+				#base {
+					padding: 30px 10px;
+				}
+				h1 {
+					font-size: 26px;
+				}
+				h1 span {
+					font-size: 60px;
+				}
+				h2 {
+					font-size: 16px;
+				}
+				.explain {
+					font-size: 14px;
+				}
+				h3 {
+					margin-top: 45px;
+					font-size: 16px;
+				}
+				#cause {
+					padding: 20px;
+					font-size: 12px;
+				}
 			}
 			
-			.boot-line{
-				opacity:0;
-				min-height:1.6em;
-				font-size:11px;
-				color:var(--fg);
-				transition:opacity 0.15s;
-			}
-			.boot-line.dim{color:var(--dim);font-size:10px;}
-			.boot-line.red{color:var(--red);font-weight:bold;}
+			/* ====================
 			
-			.boot-bar{
-				height:4px;
-				width:100%;
-				background:#141418;
-				border:1px solid var(--line);
-				margin:8px 0;
-				position:relative;
-				overflow:hidden;
-			}
-			.boot-bar span{
-				display:block;
-				height:100%;
-				width:0;
-				background:var(--fg);
-				transition:width 0.5s ease, background 0.3s ease, box-shadow 0.3s ease;
-			}
-			.boot-bar span.complete{
-				background:var(--red);
-				box-shadow:0 0 10px var(--red), 0 0 22px var(--red);
-			}
+			パソコン＆タブレット
 			
-			.boot-hint{
-				position:absolute;
-				bottom:16px;
-				left:0;right:0;
-				text-align:center;
-				font-size:9px;
-				color:var(--dim);
-				letter-spacing:0.3em;
-				animation:blink 1.6s steps(1) infinite;
-			}
+			======================= */
 			
-			@keyframes blink{
-				0%,49%{opacity:1;}
-				50%,100%{opacity:0;}
-			}
-			
-			/* ============ STAGE + FRAME ============ */
-			.stage{
-				position:relative;
-				width:100%;
-				max-width:600px;
-			}
-			
-			.frame{
-				position:relative;
-				background:var(--panel);
-				border:1px solid var(--line);
-				clip-path:inset(calc(50% - 0.5px) 0);
-				transition:clip-path 0.9s cubic-bezier(0.65, 0, 0.35, 1);
-			}
-			.frame.open{ clip-path:inset(0); }
-			
-			.seed-line{
-				position:absolute;
-				left:0;right:0;
-				top:50%;
-				height:2px;
-				margin-top:-1px;
-				background:var(--red);
-				box-shadow:0 0 8px var(--red), 0 0 20px var(--red);
-				opacity:0;
-				transform:scaleX(0);
-				transition:opacity 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-				pointer-events:none;
-				z-index:10;
-			}
-			.seed-line.show{ opacity:1; transform:scaleX(1); }
-			.seed-line.fade{ opacity:0; transition:opacity 0.5s ease; }
-			
-			/* Topbar sekarang hanya garis tipis tanpa teks */
-			.topbar{
-				height:14px;
-				border-bottom:1px solid var(--line);
-			}
-			
-			.content{ padding:22px 56px 22px 30px; }
-			
-			/* Angka kode error */
-			.code{
-				font-family:"Courier New",monospace;
-				font-size:64px;
-				font-weight:bold;
-				line-height:1;
-				letter-spacing:0.1em;
-				color:#e8e8e8;
-				margin-bottom:10px;
-				font-variant-numeric:tabular-nums;
-			}
-			.code .fixed-404{ color:#e8e8e8; }
-			.code .fixed-404 em{ font-style:normal; color:var(--red); }
-			
-			.jp-title{
-				font-size:14px;
-				font-weight:normal;
-				letter-spacing:0.14em;
-				color:#d8d8d8;
-				min-height:1.6em;
-				margin-bottom:2px;
-			}
-			
-			.en-line{
-				font-size:11px;
-				letter-spacing:0.22em;
-				color:var(--dim);
-				min-height:1.6em;
-				white-space:pre;
-				margin-bottom:12px;
-			}
-			
-			.cursor{
-				display:inline-block;
-				color:var(--red);
-				animation:blink 1.05s steps(1) infinite;
-			}
-			
-			.rule{
-				border:0;
-				border-top:1px dashed var(--line);
-				margin:0 0 10px;
-			}
-			
-			.reasons{
-				list-style:none;
-				font-size:11px;
-				color:#8a8a94;
-				margin-bottom:16px;
-				letter-spacing:0.06em;
-			}
-			.reasons li{
-				padding-left:14px;
-				position:relative;
-				line-height:1.9;
-			}
-			.reasons li::before{
-				content:"・";
-				position:absolute;
-				left:0;
-				color:var(--red);
-			}
-			
-			.nav{
-				display:flex;
-				gap:20px;
-				flex-wrap:wrap;
-				font-size:11px;
-			}
-			.nav a{
-				color:var(--fg);
-				text-decoration:none;
-				border-bottom:1px dotted #3a3a44;
-				padding-bottom:1px;
-			}
-			.nav a:hover{color:#fff;border-bottom-color:var(--red);}
-			
-			.vtext{
-				position:absolute;
-				top:34px;
-				right:12px;
-				writing-mode:vertical-rl;
-				font-size:10px;
-				letter-spacing:0.34em;
-				color:#2e2e38;
-				user-select:none;
-				pointer-events:none;
-			}
-			
-			.stamp{
-				position:absolute;
-				right:14px;
-				bottom:14px;
-				width:34px;
-				height:34px;
-				display:flex;
-				align-items:center;
-				justify-content:center;
-				border:2px solid var(--red);
-				color:var(--red);
-				font-size:17px;
-				transform:rotate(-6deg);
-				opacity:0.8;
-				user-select:none;
-				pointer-events:none;
-			}
-			
-			@media (max-width:600px){
-				body{padding:10px;font-size:11px;}
-				.content{padding:18px 18px 18px;}
-				.code{font-size:44px;letter-spacing:0.06em;margin-bottom:8px;}
-				.jp-title{font-size:12px;letter-spacing:0.1em;}
-				.en-line{font-size:9px;letter-spacing:0.16em;margin-bottom:10px;}
-				.reasons{font-size:10px;margin-bottom:12px;}
-				.reasons li{line-height:1.7;}
-				.nav{flex-direction:column;gap:6px;font-size:10px;}
-				.vtext{display:none;}
-				.stamp{width:26px;height:26px;font-size:13px;border-width:1px;right:10px;bottom:10px;}
-			}
-			
-			@media (max-height:480px){
-				.content{padding:12px 16px 12px;}
-				.code{font-size:34px;margin-bottom:4px;}
-				.reasons{margin-bottom:8px;}
-				.reasons li{line-height:1.5;}
-			}
-			
-			@media (prefers-reduced-motion:reduce){
-				.cursor,.boot-hint{animation:none;}
-				.frame{clip-path:inset(0);}
-				.seed-line{display:none;}
+			@media only screen and (min-width: 768px) {
+				#base {
+					margin-top: 80px;
+				}
+				h1 {
+					font-size: 50px;
+				}
+				h1 span {
+					font-size: 110px;
+				}
+				.explain {
+					font-size: 16px;
+					width: 660px;
+				}
+				#white_box {
+					width: 680px;
+					margin-bottom: 50px;
+				}
+				h3 {
+					font-size: 20px;
+					margin-top: 80px;
+				}
+				#cause {
+					padding: 30px;
+					font-size: 14px;
+				}
 			}
 		</style>
 	</head>
+
 	<body>
-
-		<div class="boot" id="boot">
-			<div class="boot-content" id="bootContent">
-				<div class="boot-line" data-text="■ システム起動"></div>
-				<div class="boot-line dim" data-text="CONNECTING TO SERVER..."></div>
-				<div class="boot-bar"><span id="bootFill"></span></div>
-				<div class="boot-line dim" data-text="RESOLVING /error/404"></div>
-				<div class="boot-line red" data-text="✕ ERROR 404 DETECTED"></div>
-			</div>
-			<div class="boot-hint">CLICK TO SKIP</div>
-		</div>
-
-		<div class="stage" id="stage">
-			<div class="frame" id="frame">
-				<div class="topbar"></div>
-				<div class="content">
-					<div class="code" id="codeDisplay">
-						<span class="fixed-404">4<em>0</em>4</span>
-					</div>
-					<h1 class="jp-title" id="scr-jp">ページが見つかりません</h1>
-					<p class="en-line"><span id="scr-en">PAGE NOT FOUND</span><span class="cursor">_</span></p>
-					<hr class="rule">
-					<ul class="reasons">
-						<li>URL が間違っている可能性があります</li>
-						<li>ページが削除された可能性があります</li>
-						<li>ページが一時的に利用できない可能性があります</li>
+		<div id="base">
+			<h1><span>404</span><br>
+			File Not Found</h1>
+			<h2>アクセスしようとしたページは見つかりませんでした。<small class="translation">Halaman yang Anda coba akses tidak ditemukan.</small></h2>
+			<p class="explain">このエラーは、指定したページが見つからなかったことを意味します。<small class="translation">Kesalahan ini berarti halaman yang diminta tidak ditemukan.</small></p>
+			<h3>以下のような原因が考えられます。<small class="translation">Kemungkinan penyebabnya:</small></h3>
+			<div id="white_box">
+				<div id="cause">
+					<ul>
+						<li>アクセスしようとしたファイルが存在しない（ファイルの設置箇所を誤っている）。<small class="translation">File yang Anda akses tidak ada (mungkin ditempatkan di lokasi yang salah).</small></li>
+						<li>URLアドレスが間違っている。<small class="translation">Alamat URL yang dimasukkan salah.</small></li>
 					</ul>
-					<div class="nav">
-						<a href="/">← トップページへ戻る</a>
-						<a href="javascript:history.back()">← 前のページへ戻る</a>
-					</div>
 				</div>
-				<div class="vtext">四〇四・ページが見つかりません</div>
-				<div class="stamp">無</div>
 			</div>
-			<div class="seed-line" id="seedLine"></div>
+			<!--//base-->
 		</div>
-
-		<script>
-			(function(){
-				"use strict";
-
-				var KANA  = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン";
-				var LATIN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+-/<>[]{}";
-				var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-				/* Scramble kiri→kanan */
-				function scramble(el, text, pool, speed, step){
-					if (!el) return;
-					if (reduce){ el.textContent = text; return; }
-					var len = text.length, frame = 0, timer = null;
-					function rand(){ return pool.charAt(Math.floor(Math.random() * pool.length)); }
-					function render(){
-						var head = Math.floor(frame / step);
-						if (head >= len){
-							el.textContent = text;
-							clearInterval(timer);
-							return true;
-						}
-						var out = "";
-						for (var i = 0; i < len; i++){
-							var c = text.charAt(i);
-							if (c === " "){ out += " "; continue; }
-							out += (i < head) ? c : rand();
-						}
-						el.textContent = out;
-						frame++;
-						return false;
-					}
-					if (render()) return;
-					timer = setInterval(render, speed);
-				}
-
-				/* ==== ANGKA 404 YANG BERUBAH-UBAH ==== */
-				// Semua kode error HTTP dari 3xx (redirect) sampai 5xx (server error)
-				var ERROR_CODES = [
-					// 3xx Redirect
-					300, 301, 302, 303, 304, 305, 307, 308,
-					// 4xx Client Error
-					400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410,
-					411, 412, 413, 414, 415, 416, 417, 418, 421, 422, 423,
-					424, 425, 426, 428, 429, 431, 451,
-					// 5xx Server Error
-					500, 501, 502, 503, 504, 505, 506, 507, 508, 510, 511
-				];
-
-				var codeEl = document.getElementById("codeDisplay");
-				var codeTimer = null;
-				var codeSettled = false;
-
-				function renderCode(n){
-					var s = String(n);
-					// sorot angka tengah (index 1) dengan merah, sisanya terang
-					var html = "";
-					for (var i = 0; i < s.length; i++){
-						if (i === 1) html += "<em>" + s.charAt(i) + "</em>";
-						else html += s.charAt(i);
-					}
-					codeEl.innerHTML = "<span class=\"fixed-404\">" + html + "</span>";
-				}
-
-				function startCodeCycle(){
-					if (!codeEl || reduce){
-						renderCode(404);
-						codeSettled = true;
-						return;
-					}
-
-					var elapsed = 0;
-					var TICK = 70;             // ganti kode tiap ~70ms → terasa "berkedip cepat"
-					var TOTAL = 1100;          // total durasi berubah-ubah
-					var slowDownStart = 750;   // setelah ini, jeda makin panjang (mendarat di 404)
-
-					var lastPick = 404;
-
-					function step(){
-						// pastikan tidak mengulang angka yang sama dua kali
-						var pick = lastPick;
-						while (pick === lastPick){
-							pick = ERROR_CODES[Math.floor(Math.random() * ERROR_CODES.length)];
-						}
-						lastPick = pick;
-						renderCode(pick);
-
-						elapsed += TICK;
-
-						if (elapsed >= TOTAL){
-							// final: kunci ke 404
-							renderCode(404);
-							codeSettled = true;
-							clearInterval(codeTimer);
-							return;
-						}
-
-						// easing: interval makin panjang saat mendekati akhir
-						var next = (elapsed > slowDownStart) ? TICK + (elapsed - slowDownStart) / 2 : TICK;
-						clearInterval(codeTimer);
-						codeTimer = setTimeout(step, next);
-					}
-
-					codeTimer = setTimeout(step, TICK);
-				}
-
-				/* Mulai scramble teks + cycling angka BERSAMAAN dengan frame terbuka */
-				function startContentAnimation(){
-					var jp = document.getElementById("scr-jp");
-					var en = document.getElementById("scr-en");
-					if (jp) jp.textContent = "";
-					if (en) en.textContent = "";
-
-					// angka mulai berputar
-					startCodeCycle();
-
-					// teks Jepang & Inggris scramble paralel
-					scramble(jp, "ページが見つかりません", KANA, 50, 2);
-					setTimeout(function(){
-						scramble(en, "PAGE NOT FOUND", LATIN, 35, 2);
-					}, 150);
-			}
-
-			var boot = document.getElementById("boot");
-			var bootContent = document.getElementById("bootContent");
-			var bootFill = document.getElementById("bootFill");
-			var frame = document.getElementById("frame");
-			var seedLine = document.getElementById("seedLine");
-
-			if (!boot || reduce){
-				if (boot) boot.remove();
-				if (frame) frame.classList.add("open");
-				startContentAnimation();
-				// langsung kunci 404 kalau reduce motion
-				if (reduce && codeEl){ renderCode(404); codeSettled = true; }
-				return;
-			}
-
-			var aborted = false;
-			var timers = [];
-			var bootLines = boot.querySelectorAll(".boot-line");
-
-			function T(delay, fn){
-				var id = setTimeout(function(){ if (!aborted) fn(); }, delay);
-				timers.push(id);
-			}
-
-			function finish(){
-				if (aborted) return;
-				aborted = true;
-				timers.forEach(clearTimeout);
-				timers = [];
-
-				if (bootFill){
-					bootFill.style.width = "100%";
-					bootFill.classList.add("complete");
-				}
-
-				setTimeout(function(){
-					if (bootContent) bootContent.style.opacity = "0";
-				}, 150);
-
-			// PARALEL: buka frame + seed + SEMUA animasi konten (angka & teks)
-			setTimeout(function(){
-				if (boot) boot.classList.add("transparent");
-				if (seedLine) seedLine.classList.add("show");
-				if (frame) frame.classList.add("open");
-				startContentAnimation();   // ← angka 404 berputar + scramble teks
-			}, 400);
-
-		setTimeout(function(){
-			if (boot && boot.parentNode) boot.remove();
-		}, 850);
-
-	setTimeout(function(){
-		if (seedLine) seedLine.classList.add("fade");
-	}, 950);
-
-setTimeout(function(){
-	if (seedLine && seedLine.parentNode) seedLine.remove();
-}, 1450);
-}
-
-boot.addEventListener("click", finish);
-boot.addEventListener("touchstart", finish, { passive: true });
-
-// ==== Boot sequence ====
-T(100, function(){
-	bootLines[0].style.opacity = 1;
-	scramble(bootLines[0], bootLines[0].getAttribute("data-text"), KANA, 30, 2);
-});
-T(350, function(){
-	bootLines[1].style.opacity = 1;
-	scramble(bootLines[1], bootLines[1].getAttribute("data-text"), LATIN, 25, 2);
-});
-T(550, function(){
-	if (bootFill) bootFill.style.width = "100%";
-});
-T(1080, function(){
-	if (bootFill) bootFill.classList.add("complete");
-});
-T(1150, function(){
-	bootLines[2].style.opacity = 1;
-	scramble(bootLines[2], bootLines[2].getAttribute("data-text"), LATIN, 25, 2);
-});
-T(1400, function(){
-	bootLines[3].style.opacity = 1;
-	scramble(bootLines[3], bootLines[3].getAttribute("data-text"), LATIN, 25, 2);
-});
-T(1750, finish);
-
-})();
-		</script>
 	</body>
 </html>
