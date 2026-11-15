@@ -162,13 +162,13 @@
 			#stcm-wrapper {
 				--boxShadow: -5px 5px 10px 0px #00000012, 0px 0px 50px 0px #0000001a;
 				--fontFamily: Helvetica Neue, Segoe UI, Arial, sans-serif;
-				--primaryColor: #533BE2;
-				--backgroundColor: #FFFFFF;
-				--textColor: #4B494B;
-				--backdropBackgroundColor: #00000033;
-				--backdropBackgroundBlur: 0px;
-				--iconColor: #FFFFFF;
-				--iconBackgroundColor: #533BE2;
+				--primaryColor:  rgb(123, 0, 255);
+				--backgroundColor: #141218;
+				--textColor: #ffffff;
+				--backdropBackgroundColor: #0000009f;
+				--backdropBackgroundBlur: 1px;
+				--iconColor: #ffffff;
+				--iconBackgroundColor: rgb(123, 0, 255);
 			}
 		</style>
 		<script src="https://cdn.jsdelivr.net/gh/silktide/consent-manager@v2.0.1/silktide-consent-manager.js" integrity="sha384-5Pt34uiIbCsvfiiZXoLi4HRf/YBXjr9c8e+gYeVo9smUaInNHYVtc8NZ8wUnXJIq" crossorigin="anonymous"></script>
@@ -178,16 +178,16 @@
 					show: true
 				},
 				icon: {
-					position: "bottomLeft"
+					position: "bottomRight"
 				},
 				prompt: {
-					position: "bottomLeft"
+					position: "bottomRight"
 				},
 				consentTypes: [
 					{
 						id: "analytics",
-						label: "Analytics",
-						description: "<p>These cookies help us improve the site by tracking which pages are most popular and how visitors move around the site.</p>",
+						label: "Analitik",
+						description: "<p>Cookie ini membantu kami meningkatkan situs dengan melacak halaman yang paling populer dan cara pengunjung menjelajahi situs.</p>",
 						required: false,
 						defaultValue: true,
 						gtag: "analytics_storage"
@@ -195,21 +195,21 @@
 				],
 				text: {
 					prompt: {
-						description: "<p>We use cookies on our site to enhance your user experience, provide personalized content, and analyze our traffic.</p>",
-						acceptAllButtonText: "Accept all",
-						acceptAllButtonAccessibleLabel: "Accept all cookies",
-						rejectNonEssentialButtonText: "Reject non-essential",
-						rejectNonEssentialButtonAccessibleLabel: "Reject all non-essential cookies",
-						preferencesButtonText: "Preferences",
-						preferencesButtonAccessibleLabel: "Toggle preferences"
+						description: "<p>Kami menggunakan cookie di situs ini untuk meningkatkan pengalaman Anda, menyediakan konten yang dipersonalisasi, dan menganalisis lalu lintas situs.</p>",
+						acceptAllButtonText: "Terima semua",
+						acceptAllButtonAccessibleLabel: "Terima semua cookie",
+						rejectNonEssentialButtonText: "Tolak yang tidak penting",
+						rejectNonEssentialButtonAccessibleLabel: "Tolak semua cookie yang tidak penting",
+						preferencesButtonText: "Preferensi",
+						preferencesButtonAccessibleLabel: "Buka preferensi"
 					},
 					preferences: {
-						title: "Customize your cookie preferences",
-						description: "<p>We respect your right to privacy. You can choose not to allow some types of cookies. Your cookie preferences will apply across our website.</p>",
-						saveButtonText: "Save and close",
-						saveButtonAccessibleLabel: "Save your cookie preferences",
-						creditLinkText: "Get this banner for free",
-						creditLinkAccessibleLabel: "Get this banner for free"
+						title: "Sesuaikan preferensi cookie Anda",
+						description: "<p>Kami menghormati hak privasi Anda. Anda dapat memilih untuk tidak mengizinkan jenis cookie tertentu. Preferensi cookie Anda akan berlaku di seluruh situs kami.</p>",
+						saveButtonText: "Simpan dan tutup",
+						saveButtonAccessibleLabel: "Simpan pengaturan coki saya",
+						creditLinkText: "Pasang juga di website saya",
+						creditLinkAccessibleLabel: "Pasang juga di website saya"
 					}
 				}
 			});
@@ -261,84 +261,69 @@
 				</div>
 
 				<div class="sidebar-player" data-player-group>
-					<audio-custom
-					       data-title="Happy Birthday to..."
-					       data-artist="Owaru Sekai to Birthday"
-					       src="https://lambda.vgmtreasurechest.com/soundtracks/the-end-of-the-world-and-happy-birthday-psvita-version-original-soundtrack-2017/fkkvyfeh/02.%20Happy%20Birthday%20to....mp3"
+					<audio-custom data-title="Happy Birthday to..."
+					              data-artist="Owaru Sekai to Birthday"
+					              src="https://lambda.vgmtreasurechest.com/soundtracks/the-end-of-the-world-and-happy-birthday-psvita-version-original-soundtrack-2017/fkkvyfeh/02.%20Happy%20Birthday%20to....mp3"
 					></audio-custom>
 
-					<audio-custom
-					       data-title="Kimi ni Sasageru Ai no Mahou~"
-					       data-artist="D.C. Da Capo"
-					       src="https://jetta.vgmtreasurechest.com/soundtracks/d.c.iii-da-capo-iii-vocal-album-2012/kztrevqt/01.%20Da%20Capo%20III%20~Kimi%20ni%20Sasageru%20Ai%20no%20Mahou~.mp3"
+					<audio-custom data-title="Kimi ni Sasageru Ai no Mahou~"
+					              data-artist="D.C. Da Capo"
+					              src="https://jetta.vgmtreasurechest.com/soundtracks/d.c.iii-da-capo-iii-vocal-album-2012/kztrevqt/01.%20Da%20Capo%20III%20~Kimi%20ni%20Sasageru%20Ai%20no%20Mahou~.mp3"
 					></audio-custom>
-					<audio-custom
-					       data-title="Sakura Saku Mirai Koi Yume"
-					       data-artist="D.C. Da Capo"
-					       src="https://jetta.vgmtreasurechest.com/soundtracks/d.c.-da-capo-super-best/sylndfqn/1-09.%20Sakura%20Saku%20Mirai%20Koi%20Yume.mp3"
+					<audio-custom data-title="Sakura Saku Mirai Koi Yume"
+					              data-artist="D.C. Da Capo"
+					              src="https://jetta.vgmtreasurechest.com/soundtracks/d.c.-da-capo-super-best/sylndfqn/1-09.%20Sakura%20Saku%20Mirai%20Koi%20Yume.mp3"
 					></audio-custom>
-					<audio-custom
-					       data-title="Mirai no Melody"
-					       data-artist="D.C. Da Capo"
-					       src="https://jetta.vgmtreasurechest.com/soundtracks/d.c.-da-capo-super-best/saxlniad/1-10.%20Mirai%20e%20no%20Melody.mp3"
+					<audio-custom data-title="Mirai no Melody"
+					              data-artist="D.C. Da Capo"
+					              src="https://jetta.vgmtreasurechest.com/soundtracks/d.c.-da-capo-super-best/saxlniad/1-10.%20Mirai%20e%20no%20Melody.mp3"
 					></audio-custom>
-					<audio-custom
-					       data-title="Fetishism Ark"
-					       data-artist="Chaos;Head"
-					       src="https://nu.vgmtreasurechest.com/soundtracks/chaos-head-vocal-collection/fyyzdquz/1-14.%20Fetishism%20Ark.mp3"
+					<audio-custom data-title="Fetishism Ark"
+					              data-artist="Chaos;Head"
+					              src="https://nu.vgmtreasurechest.com/soundtracks/chaos-head-vocal-collection/fyyzdquz/1-14.%20Fetishism%20Ark.mp3"
 					></audio-custom>
-					<audio-custom
-					       data-title="Bright Answer"
-					       data-artist="Yume Miru Mahou Shoujo to Koi no Jumon"
-					       src="https://nu.vgmtreasurechest.com/soundtracks/solfa-works-best-album-chronicle-cat-side-2013/ujongsxlsi/04.%20bright%20answer.mp3"
+					<audio-custom data-title="Bright Answer"
+					              data-artist="Yume Miru Mahou Shoujo to Koi no Jumon"
+					              src="https://nu.vgmtreasurechest.com/soundtracks/solfa-works-best-album-chronicle-cat-side-2013/ujongsxlsi/04.%20bright%20answer.mp3"
 					></audio-custom>
-					<audio-custom
-					       data-title="空恋"
-					       data-artist="Sorakoi"
-					       src="https://lambda.vgmtreasurechest.com/soundtracks/sorakoi-original-soundtrack-2015/ysusgecx/14.%20%E7%A9%BA%E6%81%8B.mp3"
+					<audio-custom data-title="空恋"
+					              data-artist="Sorakoi"
+					              src="https://lambda.vgmtreasurechest.com/soundtracks/sorakoi-original-soundtrack-2015/ysusgecx/14.%20%E7%A9%BA%E6%81%8B.mp3"
 					></audio-custom>
-					<audio-custom
-					       data-title="My Sweet Home"
-					       data-artist="Liber_7"
-					       src="https://nu.vgmtreasurechest.com/soundtracks/liber7-original-soundtrack-2016/lnfjtoybbx/1-03.%20My%20Sweet%20Home.mp3"
+					<audio-custom data-title="My Sweet Home"
+					              data-artist="Liber_7"
+					              src="https://nu.vgmtreasurechest.com/soundtracks/liber7-original-soundtrack-2016/lnfjtoybbx/1-03.%20My%20Sweet%20Home.mp3"
 					></audio-custom>
-					<audio-custom
-					       data-title="Honto no Tokoro"
-					       data-artist="Imouto no Seiiki Maxi Single Honto no Tokoro"
-					       src="https://nu.vgmtreasurechest.com/soundtracks/imouto-no-seiiki-maxi-single-honto-no-tokoro/qmpkilgx/01%20-%20Honto%20no%20Tokoro.mp3"
+					<audio-custom data-title="Honto no Tokoro"
+					              data-artist="Imouto no Seiiki Maxi Single Honto no Tokoro"
+					              src="https://nu.vgmtreasurechest.com/soundtracks/imouto-no-seiiki-maxi-single-honto-no-tokoro/qmpkilgx/01%20-%20Honto%20no%20Tokoro.mp3"
 					></audio-custom>
-					<audio-custom
-					       data-title="Philosophyz"
-					       data-artist="Rewrite"
-					       src="https://lambda.vgmtreasurechest.com/soundtracks/rewrite-opening-theme-song-philosophyz/bpwlsdqt/01%20-%20Philosophyz.mp3"
+					<audio-custom data-title="Philosophyz"
+					              data-artist="Rewrite"
+					              src="https://lambda.vgmtreasurechest.com/soundtracks/rewrite-opening-theme-song-philosophyz/bpwlsdqt/01%20-%20Philosophyz.mp3"
 					></audio-custom>
-					<audio-custom
-					       data-title="N.O.-N.eon light.ver S.parkling clarity"
-					       data-artist="lamunation"
-					       src="https://nu.vgmtreasurechest.com/soundtracks/lamunation-vocal-collection-pc-2016/xrovjjuw/02.%20N.O.S%20-N.eon%20light%20O.ver%20Drive%20S.parkling%20clarity-.mp3"
+					<audio-custom data-title="N.O.-N.eon light.ver S.parkling clarity"
+					              data-artist="lamunation"
+					              src="https://nu.vgmtreasurechest.com/soundtracks/lamunation-vocal-collection-pc-2016/xrovjjuw/02.%20N.O.S%20-N.eon%20light%20O.ver%20Drive%20S.parkling%20clarity-.mp3"
 					></audio-custom>
 
-					<audio-custom
-					       data-title="Yume to Iro de Dekiteiru"
-					       data-artist="Our Times Made of Dreams and Colors. Op.Ed Insert Song Maxi Single 2019"
-					       src="https://nu.vgmtreasurechest.com/soundtracks/our-times-made-of-dreams-and-colors.-op-ed-insert-song-maxi-single-2019/wrwhwklb/01.%20%E5%A4%A2%E3%81%A8%E8%89%B2%E3%81%A7%E3%81%A7%E3%81%8D%E3%81%A6%E3%81%84%E3%82%8B.mp3"
+					<audio-custom data-title="Yume to Iro de Dekiteiru"
+					              data-artist="Our Times Made of Dreams and Colors. Op.Ed Insert Song Maxi Single 2019"
+					              src="https://nu.vgmtreasurechest.com/soundtracks/our-times-made-of-dreams-and-colors.-op-ed-insert-song-maxi-single-2019/wrwhwklb/01.%20%E5%A4%A2%E3%81%A8%E8%89%B2%E3%81%A7%E3%81%A7%E3%81%8D%E3%81%A6%E3%81%84%E3%82%8B.mp3"
 					></audio-custom>
 
-					<video-custom
-					       data-title="夏ノ雨 OP"
-					       data-artist="none"
-					       src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/video/video_2.mp4"
+					<video-custom data-title="夏ノ雨 OP"
+					              data-artist="none"
+					              src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/video/video_2.mp4"
 					></video-custom>
 
-					<video-custom
-					       data-title="「秋のグラディエント」"
-					       data-artist="ClariS"
-					       src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/video/video_1.mp4"
+					<video-custom data-title="「秋のグラディエント」"
+					              data-artist="ClariS"
+					              src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/video/video_1.mp4"
 					></video-custom>
 				</div>
-				<!--
 				<div class="sidebar-bottom" id="links">
-					<h2 class="sidebar-label">Tautan</h2>
+					<h2 class="sidebar-label">Tautan dan Karya</h2>
 					<a class="contact-item" href="https://github.com/jirankun" target="_blank" rel="noopener">
 						<span class="material-icons-round">code</span>
 						github.com/jirankun
@@ -355,15 +340,11 @@
 						<span class="material-icons-round">link</span>
 						aokazestudio.zhyllanfyllah.my.id
 					</a>
-					<a class="contact-item" href="https://gravatar.com/jirankun" target="_blank" rel="noopener">
-						<span class="material-icons-round">link</span>
-						gravatar.com/jirankun
-					</a>
 					<a class="contact-item" href="https://cdn.zhyllanfyllah.my.id" target="_blank" rel="noopener">
 						<span class="material-icons-round">cloud</span>
 						cdn.zhyllanfyllah.my.id
 					</a>
-				</div> -->
+				</div>
 			</aside>
 
 			<main class="main">
@@ -485,6 +466,7 @@
 						     loading="lazy"
 						     decoding="async"
 						     id="githubInsightsImg"
+						     width="700"
 						>
 						<div class="fallback">
 							Statistik GitHub sedang mengalami gangguan.<br>
