@@ -8,7 +8,7 @@
 		<meta name="copyright" content="Zhyllan Fyllah">
 		<meta name="monetag" content="b339b11f4b59b9871dab37029bec5954">
 		<meta name="viewport"
-		      content="width=device-width, initial-scale=0.9"
+		      content="width=device-width, initial-scale=1.0"
 		>
 		<meta name="robots" content="index, follow">
 		<title>Zhyllan Fyllah — Portofolio | Pelajar Web &amp; Mobile Developer</title>
@@ -60,7 +60,22 @@
 		<link rel="icon" type="image/x-icon" sizes="100x100" href="https://zhyllanfyllah.my.id/favicon.ico">
 
 		<link rel="preconnect"
+		      href="https://fonts.googleapis.com"
+		>
+		<link rel="preconnect"
 		      href="https://fonts.gstatic.com"
+		      crossorigin
+		>
+		<link rel="preload"
+		      href="https://cdn.zhyllanfyllah.my.id/cdn/public/fonts/format/woff2/Torus-Regular.woff2"
+		      as="font"
+		      type="font/woff2"
+		      crossorigin
+		>
+		<link rel="preload"
+		      href="https://cdn.zhyllanfyllah.my.id/cdn/public/fonts/format/woff2/Torus-Bold.woff2"
+		      as="font"
+		      type="font/woff2"
 		      crossorigin
 		>
 		<link rel="preconnect"
@@ -87,7 +102,7 @@
 
 		<!--<link href="My-assets-CDN/cdn/privite/css/portofolio/1.0.0.css" rel="stylesheet">-->
 
-		<link href="https://cdn.zhyllanfyllah.my.id/cdn/public/css/player/1.0.0.css?v=media-player-1"
+		<link href="https://cdn.zhyllanfyllah.my.id/cdn/public/css/player/1.0.0.css"
 		      rel="stylesheet"
 		>
 
@@ -98,10 +113,6 @@
 		<link rel="preload"
 		      href="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/all/banner.png"
 		      as="image"
-		>
-		<link rel="preload"
-		      href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
-		      as="style"
 		>
 		<script type="module" src="https://cdn.zhyllanfyllah.my.id/cdn/privite/js/banner-palestine/1.0.0.js"></script>
 		<script type="application/ld+json">
@@ -210,33 +221,36 @@
 			<aside class="sidebar">
 				<div class="sidebar-top">
 					<div class="profile-photo-wrap">
+						<img class="profile-photo"
+						     src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/portofolio/favicon.png"
+						     alt="Foto profil Zhyllan Fyllah"
+						     width="140"
+						     height="140"
+						     decoding="async"
+						     style="-webkit-clip-path: url(#photoClip); clip-path: url(#photoClip)"
+						>
 						<svg class="morph-svg"
 						     viewBox="0 0 140 140"
 						     xmlns="http://www.w3.org/2000/svg"
 						     xmlns:xlink="http://www.w3.org/1999/xlink"
 						     aria-hidden="true"
+						     focusable="false"
 						>
 							<defs>
-								<pattern id="photoFill"
-								         patternUnits="userSpaceOnUse"
-								         x="0"
-								         y="0"
-								         width="140"
-								         height="140"
+								<!-- Klip foto memakai path yang sama dengan rangkanya,
+								     jadi morph dari JS otomatis ikut mengubah foto. -->
+								<clipPath id="photoClip"
+								          clipPathUnits="objectBoundingBox"
 								>
-									<image href="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/portofolio/favicon.png"
-									       xlink:href="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/portofolio/favicon.png"
-									       x="0"
-									       y="0"
-									       width="140"
-									       height="140"
-									       preserveAspectRatio="xMidYMid slice"
-									></image>
-								</pattern>
+									<use href="#morphFramePath"
+									     xlink:href="#morphFramePath"
+									     transform="scale(0.007142857)"
+									></use>
+								</clipPath>
 							</defs>
 							<path id="morphFramePath"
 							      d="M70 0C108.66 0 140 31.34 140 70s-31.34 70-70 70S0 108.66 0 70 31.34 0 70 0Z"
-							      fill="url(#photoFill)"
+							      fill="none"
 							></path>
 						</svg>
 					</div>
@@ -247,94 +261,80 @@
 				</div>
 
 				<div class="sidebar-player" data-player-group>
-					<audio controls
-					       preload="none"
+					<audio-custom
 					       data-title="Happy Birthday to..."
 					       data-artist="Owaru Sekai to Birthday"
 					       src="https://lambda.vgmtreasurechest.com/soundtracks/the-end-of-the-world-and-happy-birthday-psvita-version-original-soundtrack-2017/fkkvyfeh/02.%20Happy%20Birthday%20to....mp3"
-					></audio>
+					></audio-custom>
 
-					<audio controls
-					       preload="none"
+					<audio-custom
 					       data-title="Kimi ni Sasageru Ai no Mahou~"
 					       data-artist="D.C. Da Capo"
 					       src="https://jetta.vgmtreasurechest.com/soundtracks/d.c.iii-da-capo-iii-vocal-album-2012/kztrevqt/01.%20Da%20Capo%20III%20~Kimi%20ni%20Sasageru%20Ai%20no%20Mahou~.mp3"
-					></audio>
-					<audio controls
-					       preload="none"
+					></audio-custom>
+					<audio-custom
 					       data-title="Sakura Saku Mirai Koi Yume"
 					       data-artist="D.C. Da Capo"
 					       src="https://jetta.vgmtreasurechest.com/soundtracks/d.c.-da-capo-super-best/sylndfqn/1-09.%20Sakura%20Saku%20Mirai%20Koi%20Yume.mp3"
-					></audio>
-					<audio controls
-					       preload="none"
+					></audio-custom>
+					<audio-custom
 					       data-title="Mirai no Melody"
 					       data-artist="D.C. Da Capo"
 					       src="https://jetta.vgmtreasurechest.com/soundtracks/d.c.-da-capo-super-best/saxlniad/1-10.%20Mirai%20e%20no%20Melody.mp3"
-					></audio>
-					<audio controls
-					       preload="none"
+					></audio-custom>
+					<audio-custom
 					       data-title="Fetishism Ark"
 					       data-artist="Chaos;Head"
 					       src="https://nu.vgmtreasurechest.com/soundtracks/chaos-head-vocal-collection/fyyzdquz/1-14.%20Fetishism%20Ark.mp3"
-					></audio>
-					<audio controls
-					       preload="none"
+					></audio-custom>
+					<audio-custom
 					       data-title="Bright Answer"
 					       data-artist="Yume Miru Mahou Shoujo to Koi no Jumon"
 					       src="https://nu.vgmtreasurechest.com/soundtracks/solfa-works-best-album-chronicle-cat-side-2013/ujongsxlsi/04.%20bright%20answer.mp3"
-					></audio>
-					<audio controls
-					       preload="none"
+					></audio-custom>
+					<audio-custom
 					       data-title="空恋"
 					       data-artist="Sorakoi"
 					       src="https://lambda.vgmtreasurechest.com/soundtracks/sorakoi-original-soundtrack-2015/ysusgecx/14.%20%E7%A9%BA%E6%81%8B.mp3"
-					></audio>
-					<audio controls
-					       preload="none"
+					></audio-custom>
+					<audio-custom
 					       data-title="My Sweet Home"
 					       data-artist="Liber_7"
 					       src="https://nu.vgmtreasurechest.com/soundtracks/liber7-original-soundtrack-2016/lnfjtoybbx/1-03.%20My%20Sweet%20Home.mp3"
-					></audio>
-					<audio controls
-					       preload="none"
+					></audio-custom>
+					<audio-custom
 					       data-title="Honto no Tokoro"
 					       data-artist="Imouto no Seiiki Maxi Single Honto no Tokoro"
 					       src="https://nu.vgmtreasurechest.com/soundtracks/imouto-no-seiiki-maxi-single-honto-no-tokoro/qmpkilgx/01%20-%20Honto%20no%20Tokoro.mp3"
-					></audio>
-					<audio controls
-					       preload="none"
+					></audio-custom>
+					<audio-custom
 					       data-title="Philosophyz"
 					       data-artist="Rewrite"
 					       src="https://lambda.vgmtreasurechest.com/soundtracks/rewrite-opening-theme-song-philosophyz/bpwlsdqt/01%20-%20Philosophyz.mp3"
-					></audio>
-					<audio controls
-					       preload="none"
+					></audio-custom>
+					<audio-custom
 					       data-title="N.O.-N.eon light.ver S.parkling clarity"
 					       data-artist="lamunation"
 					       src="https://nu.vgmtreasurechest.com/soundtracks/lamunation-vocal-collection-pc-2016/xrovjjuw/02.%20N.O.S%20-N.eon%20light%20O.ver%20Drive%20S.parkling%20clarity-.mp3"
-					></audio>
+					></audio-custom>
 
-					<audio controls
-					       preload="none"
+					<audio-custom
 					       data-title="Yume to Iro de Dekiteiru"
 					       data-artist="Our Times Made of Dreams and Colors. Op.Ed Insert Song Maxi Single 2019"
 					       src="https://nu.vgmtreasurechest.com/soundtracks/our-times-made-of-dreams-and-colors.-op-ed-insert-song-maxi-single-2019/wrwhwklb/01.%20%E5%A4%A2%E3%81%A8%E8%89%B2%E3%81%A7%E3%81%A7%E3%81%8D%E3%81%A6%E3%81%84%E3%82%8B.mp3"
-					></audio>
+					></audio-custom>
 
-					<video controls
-					       preload="none"
+					<video-custom
 					       data-title="夏ノ雨 OP"
 					       data-artist="none"
 					       src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/video/video_2.mp4"
-					></video>
+					></video-custom>
 
-					<video controls
-					       preload="none"
+					<video-custom
 					       data-title="「秋のグラディエント」"
 					       data-artist="ClariS"
 					       src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/video/video_1.mp4"
-					></video>
+					></video-custom>
 				</div>
 				<!--
 				<div class="sidebar-bottom" id="links">
@@ -369,7 +369,7 @@
 			<main class="main">
 				<div class="hero-banner" id="heroBanner">
 					<img src="https://cdn.zhyllanfyllah.my.id/cdn/privite/assets/portofolio/board.png"
-					     alt="Papan Tulis"
+					     alt=""
 					     class="hero-banner__img"
 					>
 
@@ -663,7 +663,7 @@
 			</a>
 		</nav>
 
-		<script src="https://cdn.zhyllanfyllah.my.id/cdn/public/js/player/1.0.0.js?v=media-player-1" defer></script>
+		<script src="https://cdn.zhyllanfyllah.my.id/cdn/public/js/player/1.0.0.js" defer></script>
 
 		<script async
 		        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6754329161781195"
